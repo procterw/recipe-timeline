@@ -1,5 +1,22 @@
 import * as recipes from'../data/recipes.js';
+import { ingredientDb } from '../data/ingredientDb.js';
 import { getStepTimeRange } from './getStepTimeRange.js';
+
+/**
+ * Mocks an API call which fills out the ingredient list in recipe
+ * step. The step only stores the id and the measurement, and metadata
+ * like descriptions or pictures would be stored in a separate DB
+ * @constructor
+ * @param {Array<Object>} ingredients - A list of ingredients
+ * @param {string} ingredients[].id - The ingredient id
+ * @param {string} ingredients[].measurement - The amount and unit
+ * @returns {Array<Object>} - An array of recipe steps in optimal order
+ */
+const fillOutIngredients = ingredients => {
+  return ingredients.map(({ id, measurement }) => {
+    return ingredientDb[id](measurement);
+  });
+};
 
 /**
  * Mocks an API which would, given a list of recipes, return the
@@ -41,6 +58,12 @@ export const getRecipesTimeline = async (recipeNames) => {
       ...step,
       startTime: maxStartTime - step.startTime,
       endTime: maxStartTime - step.endTime,
+    };
+  }).map(step => {
+    // Fills out ingredients metadata
+    return {
+      ...step,
+      ingredients: fillOutIngredients(step.ingredients),
     };
   }).sort((a,b) => {
     return a.startTime - b.startTime;

@@ -7,9 +7,9 @@ export const oatmeal = {
   steps: [
     {
       stepName: 'Boil water',
-      ingredients: {
-        water: '5 cups'
-      },
+      ingredients: [
+        { id: 'water', measurement: '5 cups' },
+      ],
       dependencies: [],
       type: StepsEnum.HEAT,
       duration: 5,
@@ -17,9 +17,9 @@ export const oatmeal = {
     },
     {
       stepName: 'Add oats to water',
-      ingredients: {
-        oats: '1 cup'
-      },
+      ingredients: [
+        { id: 'oats', measurement: '1 cup' },
+      ],
       dependencies: ['Boil water'],
       type: StepsEnum.COMBINE,
       duration: 1,
@@ -27,7 +27,7 @@ export const oatmeal = {
     },
     {
       stepName: 'Cook oats',
-      ingredients: {},
+      ingredients: [],
       dependencies: ['Add oats to water'],
       type: StepsEnum.SIMMER,
       duration: 15,
@@ -35,12 +35,12 @@ export const oatmeal = {
     },
     {
       stepName: 'Prep toppings',
-      ingredients: {
-        apples: '1',
-        dates: '3',
-        pumpkinSeeds: '1 handful',
-        walnuts: '1 handful'
-      },
+      ingredients: [
+        { id: 'apples', measurement: '1', },
+        { id: 'dates', measurement: '3', },
+        { id: 'pumpkinSeeds', measurement: '1 handful', },
+        { id: 'walnuts', measurement: '1 handful' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 5,
@@ -48,9 +48,9 @@ export const oatmeal = {
     },
     {
       stepName: 'Finish oatmeal',
-      ingredients: {
-        cinnamon: { measurement: '1 tsp' }
-      },
+      ingredients: [
+        { id: 'cinnamon', measurement: { measurement: '1 tsp' } },
+      ],
       dependencies: ['Prep toppings', 'Cook oats'],
       type: StepsEnum.COMBINE,
       duration: 2,
@@ -64,9 +64,9 @@ export const rice = {
   steps: [
     {
       stepName: 'Prepare rice',
-      ingredients: {
-        rice: '1 cup'
-      },
+      ingredients: [
+        { id: 'rice', measurement: '1 cup' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 3,
@@ -74,9 +74,9 @@ export const rice = {
     },
     {
       stepName: 'Cook rice',
-      ingredients: {
-        water: '1 cups'
-      },
+      ingredients: [
+        { id: 'water', measurement: '1 cups' },
+      ],
       dependencies: ['Prepare rice'],
       type: StepsEnum.BOIL,
       duration: 20,
@@ -84,7 +84,7 @@ export const rice = {
     },
     {
       stepName: 'Let rice rest',
-      ingredients: {},
+      ingredients: [],
       dependencies: ['Cook rice'],
       type: StepsEnum.REST,
       duration: 5,
@@ -98,9 +98,9 @@ export const greens = {
   steps: [
     {
       stepName: 'Prepare garlic',
-      ingredients: {
-        garlic: '6 cloves'
-      },
+      ingredients: [
+        { id: 'garlic', measurement: '6 cloves' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 5,
@@ -108,9 +108,9 @@ export const greens = {
     },
     {
       stepName: 'Prepare kale',
-      ingredients: {
-        kale: '1 bunch'
-      },
+      ingredients: [
+        { id: 'kale', measurement: '1 bunch' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 5,
@@ -118,9 +118,9 @@ export const greens = {
     },
     {
       stepName: 'Prepare broccoli',
-      ingredients: {
-        water: '1 large head'
-      },
+      ingredients: [
+        { id: 'water', measurement: '1 large head' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 5,
@@ -128,9 +128,9 @@ export const greens = {
     },
     {
       stepName: 'Cook garlic',
-      ingredients: {
-        oliveOil: '1 tbsp'
-      },
+      ingredients: [
+        { id: 'oliveOil', measurement: '1 tbsp' },
+      ],
       dependencies: ['Prepare garlic'],
       type: StepsEnum.SAUTEE,
       duration: 8,
@@ -138,7 +138,7 @@ export const greens = {
     },
     {
       stepName: 'Cook greens',
-      ingredients: {},
+      ingredients: [],
       dependencies: ['Cook garlic', 'Prepare kale', 'Prepare broccoli'],
       type: StepsEnum.SAUTEE,
       duration: 5,
@@ -152,12 +152,12 @@ export const tofu = {
   steps: [
     {
       stepName: 'Prepare tofu',
-      ingredients: {
-        tofu: '1 block',
-        cornStarch: '1 tbsp',
-        garlicPowder: '1 tsp',
-        gingerPowder: '1 tsp'
-      },
+      ingredients: [
+        { id: 'tofu', measurement: '1 block', },
+        { id: 'cornStarch', measurement: '1 tbsp', },
+        { id: 'garlicPowder', measurement: '1 tsp', },
+        { id: 'gingerPowder', measurement: '1 tsp' },
+      ],
       dependencies: [],
       type: StepsEnum.PREP,
       duration: 10,
@@ -165,9 +165,9 @@ export const tofu = {
     },
     {
       stepName: 'Heat oil',
-      ingredients: {
-        sesameOil: '2 tbsp'
-      },
+      ingredients: [
+        { id: 'sesameOil', measurement: '2 tbsp' },
+      ],
       dependencies: [],
       type: StepsEnum.HEAT,
       duration: 5,
@@ -175,7 +175,7 @@ export const tofu = {
     },
     {
       stepName: 'Fry tofu',
-      ingredients: {},
+      ingredients: [],
       dependencies: ['Prepare tofu', 'Heat oil'],
       type: StepsEnum.SAUTEE,
       duration: 10,
@@ -183,9 +183,9 @@ export const tofu = {
     },
     {
       stepName: 'Cook in soy sauce',
-      ingredients: {
-        soySauce: '1 tbsp'
-      },
+      ingredients: [
+        { id: 'soySauce', measurement: '1 tbsp' },
+      ],
       dependencies: ['Fry tofu'],
       type: StepsEnum.SAUTEE,
       duration: 3,
@@ -193,7 +193,7 @@ export const tofu = {
     },
     {
       stepName: 'Rest tofu',
-      ingredients: {},
+      ingredients: [],
       dependencies: ['Cook in soy sauce'],
       type: StepsEnum.REST,
       duration: 5,

@@ -16,6 +16,8 @@ export class Timeline {
       .attr('class', 'timeline-vis')
       .html(timelineStyle);
 
+    this.expandedSteps = [];
+
     this.data = data;
     this.width = selection.node().getBoundingClientRect().width;
 
@@ -32,24 +34,47 @@ export class Timeline {
   }
 
   enter() {
-    this.steps = this.selection
+    this.stepWrapper = this.selection
       .append('ul')
       .style('padding-left', `${margins.l}px`)
-      .attr('class', 'steps')
+      .attr('class', 'steps');
+
+    const steps = this.stepWrapper
       .selectAll('li')
       .data(this.data)
       .enter()
       .append('li')
       .attr('class', 'step')
-      .style('padding-left', d => `${this.timeScale(d.startTime)}px`);
+      .style('padding-left', d => `${this.timeScale(d.startTime)}px`)
+      .on('click', function() {
+        d3.select(this).classed('expanded', !d3.select(this).classed('expanded'));
+      });
 
-    this.steps.append('span')
+    // step labels
+    steps.append('span')
       .attr('class', 'step-label')
-      .text(d => d.instructions);
+      .text(d => d.stepName);
 
-    this.steps.append('div')
+    // duration bars
+    steps.append('div')
       .attr('class', d => this.fillScale(d.type.involvement))
       .classed('step-duration', true)
       .style('width', d => `${this.timeScale(d.elapsedTime)}px`);
+
+    const fullStep = steps.append('div')
+      .attr('class', 'full-step');
+    
+    fullStep.append('p')
+      .attr('class', 'step-instructions')
+      .text(d => d.instructions);
+
+    fullStep.append('ul')
+      .attr('class', 'step-ingredients')
+      .selectAll('li')
+      .data(d => d.ingredients)
+      .enter()
+      .append('li')
+      .attr('class', 'step-ingredient')
+      .text(d => `${d.measurement} ${d.name}`);
   }
 }

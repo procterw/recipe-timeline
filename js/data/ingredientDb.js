@@ -1,8 +1,8 @@
 function ingredient(measurement, id, name) {
-  return { id: { measurement, id, name } };
+  return { measurement, id, name };
 }
 
-export const ingredients = {
+export const ingredientDb = {
   water: (m) => ingredient(m, 'water', 'water'),
   oats: (m) => ingredient(m, 'oats', 'oats'),
   apples: (m) => ingredient(m, 'apples', 'apples'),
