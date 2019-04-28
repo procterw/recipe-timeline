@@ -1,0 +1,23 @@
+{
+  "name": "recipe-timeline",
+  "version": "1.0.0",
+  "description": "What do recipes look like?",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "lint": "npx eslint js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/procterw/recipe-timeline.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/procterw/recipe-timeline/issues"
+  },
+  "homepage": "https://github.com/procterw/recipe-timeline#readme",
+  "dependencies": {
+    "eslint": "^5.16.0"
+  }
+}
