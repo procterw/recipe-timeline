@@ -1,4 +1,4 @@
-import { StepsEnum } from './StepsEnum';
+import { StepsEnum } from './StepsEnum.js';
 // import { ingredients as igd } from './ingredients';
 // import { equipment as eqp } from './equipment';
 
