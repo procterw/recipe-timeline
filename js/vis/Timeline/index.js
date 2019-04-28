@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { timelineStyle } from './style.js';
+import { timelineStyle, margins } from './style.js';
 
 export class Timeline {
 
@@ -21,7 +21,11 @@ export class Timeline {
 
     this.timeScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.endTime)])
-      .range([0, this.width]);
+      .range([0, this.width - margins.r - margins.l]);
+
+    this.fillScale = d3.scaleOrdinal()
+      .domain([0, 0.5, 1])
+      .range(['passive', 'semi-active', 'active']);
 
     this.enter();
     // this.enterGrouped();
@@ -30,6 +34,7 @@ export class Timeline {
   enter() {
     this.steps = this.selection
       .append('ul')
+      .style('padding-left', `${margins.l}px`)
       .attr('class', 'steps')
       .selectAll('li')
       .data(this.data)
@@ -43,7 +48,7 @@ export class Timeline {
       .text(d => d.instructions);
 
     this.steps.append('div')
-      .attr('class', d => d.type.id)
+      .attr('class', d => this.fillScale(d.type.involvement))
       .classed('step-duration', true)
       .style('width', d => `${this.timeScale(d.elapsedTime)}px`);
   }

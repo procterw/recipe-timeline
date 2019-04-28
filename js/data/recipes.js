@@ -69,7 +69,7 @@ export const rice = {
       },
       dependencies: [],
       type: StepsEnum.PREP,
-      duration: 5,
+      duration: 3,
       instructions: 'Rinse rice.'
     },
     {

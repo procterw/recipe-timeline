@@ -14,7 +14,7 @@ const template = `
 export const initializeTimelinePage = async (selection) => {
   selection.html(template);
 
-  const recipeTimeline = await getRecipesTimeline(['oatmeal', 'rice']);
+  const recipeTimeline = await getRecipesTimeline(['rice', 'greens', 'tofu']);
 
   new Timeline(
     selection.select('.timeline-vis-wrapper'),
