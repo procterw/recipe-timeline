@@ -11,13 +11,6 @@ export class Timeline {
    * @param {Array<Object>} data - An array of recipe steps
    */
   constructor(selection, data) {
-    this.selection = selection
-      .append('section')
-      .attr('class', 'timeline-vis')
-      .html(timelineStyle);
-
-    this.expandedSteps = [];
-
     this.data = data;
     this.width = selection.node().getBoundingClientRect().width;
 
@@ -25,12 +18,27 @@ export class Timeline {
       .domain([0, d3.max(data, d => d.endTime)])
       .range([0, this.width - margins.r - margins.l]);
 
+    this.timeAxis = selection
+      .append('svg')
+      .attr('height', 22)
+      .attr('width', this.width)
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${margins.l},20)`)
+      .call(
+        d3.axisTop(this.timeScale)
+      );
+
+    this.selection = selection
+      .append('section')
+      .attr('class', 'timeline-vis')
+      .html(timelineStyle);
+
     this.fillScale = d3.scaleOrdinal()
       .domain([0, 0.5, 1])
       .range(['passive', 'semi-active', 'active']);
 
     this.enter();
-    // this.enterGrouped();
   }
 
   enter() {
@@ -50,16 +58,16 @@ export class Timeline {
         d3.select(this).classed('expanded', !d3.select(this).classed('expanded'));
       });
 
-    // step labels
-    steps.append('span')
-      .attr('class', 'step-label')
-      .text(d => d.stepName);
-
     // duration bars
     steps.append('div')
       .attr('class', d => this.fillScale(d.type.involvement))
       .classed('step-duration', true)
       .style('width', d => `${this.timeScale(d.elapsedTime)}px`);
+
+    // step labels
+    steps.append('span')
+      .attr('class', 'step-label')
+      .text(d => d.stepName);
 
     const fullStep = steps.append('div')
       .attr('class', 'full-step');
