@@ -1,5 +1,5 @@
-import * as recipes from'../data/recipes.js';
-import { ingredientDb } from '../data/ingredientDb.js';
+import * as recipes from'./data/recipes.js';
+import { ingredientDb } from './data/ingredientDb.js';
 import { getStepTimeRange } from './getStepTimeRange.js';
 
 /**

@@ -1,7 +1,7 @@
-import App from './App.vue';
+import Timeline from './views/Timeline.vue';
 
 const routes = [
-  { path: '/', component: App },
+  { path: '/', component: Timeline },
 ];
 
 const router = new VueRouter({ routes });

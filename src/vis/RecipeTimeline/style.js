@@ -1,5 +1,7 @@
 export const margins = { t: 10, r: 100, b: 10, l: 20 };
 
+export const barHeight = 15;
+
 export const timelineStyle = `
   <style>
     .timeline-vis {
