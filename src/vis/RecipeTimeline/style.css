@@ -1,0 +1,9 @@
+g.step-bar {
+  stroke: black;
+  stroke-width: 20;
+}
+
+g.step-bar rect {
+  mask: url(#mask-stripe);
+  fill: black;
+}

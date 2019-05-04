@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 import { margins, barHeight } from './style.js';
+import { loadPatterns } from './loadPatterns';
+import './style.css';
 
 export class RecipeTimeline {
 
@@ -17,7 +19,8 @@ export class RecipeTimeline {
     this.components = {};
 
     this.svg = this.selection.append('svg');
-    this.canvas; // main vis
+    loadPatterns(this.svg);
+    // Initialize main vis canvas, not html5 canvas
     this.rescaleCanvas();
     
     this.setTimeScale();
@@ -88,6 +91,7 @@ export class RecipeTimeline {
       .text(d => d.stepName);
 
     this.components.stepBars = this.components.steps
+      .append('rect')
       .append('rect')
       .attr('height', barHeight)
       .attr('width', d => this.timeScale(d.duration))
