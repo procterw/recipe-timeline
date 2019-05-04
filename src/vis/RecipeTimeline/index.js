@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { margins, barHeight } from './style.js';
+import { margins, barHeight, stepHeight } from './style.js';
 import { loadPatterns } from './loadPatterns';
 import './style.css';
 
@@ -52,8 +52,8 @@ export class RecipeTimeline {
     this.width = this._width - margins.r - margins.l;
 
     // TODO
-    this._height = 1000;
-    this.height = this._width - margins.t - margins.b;
+    this.height = stepHeight * this.data.length;
+    this._height = this.height + margins.t + margins.b;
 
     this.svg
       .attr('width', this._width)
@@ -80,23 +80,37 @@ export class RecipeTimeline {
       .data(this.data)
       .enter()
       .append('g')
+      .attr('class', 'step-group')
       .attr('transform', d => {
         const x = this.timeScale(d.startTime);
         const y = this.stepScale(d.stepName);
-        return `translate(${x},${y + 5})`;
+        return `translate(${x},${y})`;
       });
 
     this.components.stepLabels = this.components.steps
       .append('text')
+      .attr('class', 'step-name-label')
       .text(d => d.stepName);
 
+    this.components.timeLabels = this.components.steps
+      .append('text')
+      .attr('class', 'step-time-label')
+      .attr('transform', (d, i) => {
+        // HACK to place labels side by side
+        const x = this.components.stepLabels
+          .filter((d, i0) => i === i0)
+          .node()
+          .getBoundingClientRect().width;
+        return `translate(${x + 5},0)`;
+      })
+      .text(d => `${d.duration} minutes`);
+
     this.components.stepBars = this.components.steps
-      .append('rect')
       .append('rect')
       .attr('height', barHeight)
       .attr('width', d => this.timeScale(d.duration))
       .attr('x', 0)
-      .attr('y', 10);
+      .attr('y', 5);
   }
 
   // renderRecipes() {

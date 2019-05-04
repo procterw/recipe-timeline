@@ -1,9 +1,14 @@
-g.step-bar {
-  stroke: black;
-  stroke-width: 20;
+.step-group text {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 13px;
 }
 
-g.step-bar rect {
-  mask: url(#mask-stripe);
-  fill: black;
+.step-time-label {
+  font-style: italic;
+  fill: #666;
+}
+
+.step-group rect {
+  /* mask: url(#mask-stripe); */
+  /* fill: black; */
 }
