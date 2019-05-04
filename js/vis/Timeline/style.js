@@ -17,7 +17,7 @@ export const timelineStyle = `
 
     .timeline-vis .step {
       margin: 0 0 2px 0;
-      padding: 2px;
+      padding: 0;
       cursor: pointer;
     }
 

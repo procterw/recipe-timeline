@@ -18,17 +18,6 @@ export class Timeline {
       .domain([0, d3.max(data, d => d.endTime)])
       .range([0, this.width - margins.r - margins.l]);
 
-    this.timeAxis = selection
-      .append('svg')
-      .attr('height', 22)
-      .attr('width', this.width)
-      .append('g')
-      .attr('class', 'axis')
-      .attr('transform', `translate(${margins.l},20)`)
-      .call(
-        d3.axisTop(this.timeScale)
-      );
-
     this.selection = selection
       .append('section')
       .attr('class', 'timeline-vis')
@@ -38,18 +27,37 @@ export class Timeline {
       .domain([0, 0.5, 1])
       .range(['passive', 'semi-active', 'active']);
 
-    this.enter();
+    this.renderRecipes();
   }
 
-  enter() {
-    this.stepWrapper = this.selection
+  renderRecipes() {
+    const nestedData = d3.nest()
+      .key(d => d.recipeName)
+      .entries(this.data);
+    
+    const recipeSection = this.selection.selectAll('section')
+      .data(nestedData)
+      .enter()
+      .append('section');
+
+    recipeSection
+      .html(d => `<h2>${d.key}</h2>`);
+
+    recipeSection
+      .call(this.renderSteps.bind(this));
+  }
+
+  renderSteps(recipes) {
+    recipes.call(this.renderTimeAxis.bind(this));
+
+    this.stepWrapper = recipes
       .append('ul')
       .style('padding-left', `${margins.l}px`)
       .attr('class', 'steps');
 
     const steps = this.stepWrapper
       .selectAll('li')
-      .data(this.data)
+      .data(d => d.values)
       .enter()
       .append('li')
       .attr('class', 'step')
@@ -84,5 +92,18 @@ export class Timeline {
       .append('li')
       .attr('class', 'step-ingredient')
       .text(d => `${d.measurement} ${d.name}`);
+  }
+
+  renderTimeAxis(selection) {
+    selection
+      .append('svg')
+      .attr('height', 22)
+      .attr('width', this.width)
+      .append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${margins.l},20)`)
+      .call(
+        d3.axisTop(this.timeScale)
+      );
   }
 }

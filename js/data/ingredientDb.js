@@ -21,5 +21,13 @@ export const ingredientDb = {
   garlicPowder: (m) => ingredient(m, 'garlicPowder', 'garlic powder'),
   gingerPowder: (m) => ingredient(m, 'gingerPowder', 'ginger powder'),
   sesameOil: (m) => ingredient(m, 'sesameOil', 'sesame oil'),
-  soySauce: (m) => ingredient(m, 'soySauce', 'soy sauce')
+  soySauce: (m) => ingredient(m, 'soySauce', 'soy sauce'),
+  mushrooms: (m) => ingredient(m, 'mushrooms', 'mushrooms'),
+  tempeh: (m) => ingredient(m, 'tempeh', 'tempeh'),
+  broccolini: (m) => ingredient(m, 'broccolini', 'broccolini'),
+  spinach: (m) => ingredient(m, 'spinach', 'spinach'),
+  ginger: (m) => ingredient(m, 'ginger', 'ginger'),
+  onions: (m) => ingredient(m, 'onions', 'onions'),
+  greenOnions: (m) => ingredient(m, 'green onions', 'greenOnions'),
+  buckwheatSobaNoodles: (m) => ingredient(m, 'buckwheatSobaNoodles', 'buckwheat soba noodldes'),
 };
