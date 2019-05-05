@@ -1,6 +1,7 @@
 <template>
   <div class="timeline-view">
-    <button v-on:click="resort">Resort</button>
+    <button v-on:click="sortByStartTime">Sort by start time</button>
+    <button v-on:click="sortByFlow">Sort by flow</button>
   </div>
 </template>
 
@@ -23,21 +24,20 @@ export default {
         'tofu',
         'greens'
       ],
-      recipeTimeline: null,
-      data: [],
+      recipeTimeline: null
     }
   },
-  mounted: async function () {
-    this.data = await getRecipesTimeline(['rice', 'tofu', 'greens']);
-    this.recipeTimeline = new RecipeTimeline(this.$el, this.data);
+  mounted: function () {
+    this.recipeTimeline = new RecipeTimeline(this.$el, []);
   },
   methods: {
-    resort: function (event) {
-      // bad random sort
-      const resortedData = this.data.sort(function() {
-        return .5 - Math.random();
-      });
-      this.recipeTimeline.resortSteps(resortedData);
+    sortByStartTime: async function() {
+      const data = await getRecipesTimeline(['rice', 'tofu', 'greens'], 'time');
+      this.recipeTimeline.setSteps(data);
+    },
+    sortByFlow: async function() {
+      const data = await getRecipesTimeline(['rice', 'tofu', 'greens'], 'flow');
+      this.recipeTimeline.setSteps(data);
     }
   }
 }

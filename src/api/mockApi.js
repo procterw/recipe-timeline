@@ -79,6 +79,6 @@ export const getRecipesTimeline = async (recipeNames, sort='time') => {
   }
 
   if (sort === 'flow') {
-    return sortByFlow(startTimeSortedRecipeTimeline);
+    return sortByFlow(steps);
   }
 };

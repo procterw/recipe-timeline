@@ -95,7 +95,7 @@
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n}\n\n.step-bar {\n  height: 18px;\n  background: black;\n}", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-bar {\n  height: 18px;\n  background: black;\n}", ""]);
 
 
 
@@ -214,6 +214,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -233,21 +234,20 @@ const routerStore = {
         'tofu',
         'greens'
       ],
-      recipeTimeline: null,
-      data: [],
+      recipeTimeline: null
     }
   },
-  mounted: async function () {
-    this.data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(['rice', 'tofu', 'greens']);
-    this.recipeTimeline = new _vis_RecipeTimeline__WEBPACK_IMPORTED_MODULE_0__["RecipeTimeline"](this.$el, this.data);
+  mounted: function () {
+    this.recipeTimeline = new _vis_RecipeTimeline__WEBPACK_IMPORTED_MODULE_0__["RecipeTimeline"](this.$el, []);
   },
   methods: {
-    resort: function (event) {
-      // bad random sort
-      const resortedData = this.data.sort(function() {
-        return .5 - Math.random();
-      });
-      this.recipeTimeline.resortSteps(resortedData);
+    sortByStartTime: async function() {
+      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(['rice', 'tofu', 'greens'], 'time');
+      this.recipeTimeline.setSteps(data);
+    },
+    sortByFlow: async function() {
+      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(['rice', 'tofu', 'greens'], 'flow');
+      this.recipeTimeline.setSteps(data);
     }
   }
 });
@@ -271,7 +271,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "timeline-view" }, [
-    _c("button", { on: { click: _vm.resort } }, [_vm._v("Resort")])
+    _c("button", { on: { click: _vm.sortByStartTime } }, [
+      _vm._v("Sort by start time")
+    ]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.sortByFlow } }, [_vm._v("Sort by flow")])
   ])
 }
 var staticRenderFns = []
@@ -1215,6 +1219,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _data_recipes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data/recipes.js */ "./src/api/data/recipes.js");
 /* harmony import */ var _data_ingredientDb_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data/ingredientDb.js */ "./src/api/data/ingredientDb.js");
 /* harmony import */ var _getStepTimeRange_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getStepTimeRange.js */ "./src/api/getStepTimeRange.js");
+/* harmony import */ var _sortByFlow_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sortByFlow.js */ "./src/api/sortByFlow.js");
+
 
 
 
@@ -1241,9 +1247,10 @@ const fillOutIngredients = ingredients => {
  * @constructor
  * @param {Array[String]} recipeNames - A list of recipes to retrieve
  * @param {Array<Object>} data - An array of recipes
- * @returns {Array<Object>} - An array of recipe steps in optimal order
+ * @param {String} sort - A string indicating how to sort the steps
+ * @returns {Array<Object>} - An array of recipe steps in some order
  */
-const getRecipesTimeline = async (recipeNames) => {
+const getRecipesTimeline = async (recipeNames, sort='time') => {
   let recipeTimeline = [];
   let maxStartTime = 0;
 
@@ -1256,7 +1263,7 @@ const getRecipesTimeline = async (recipeNames) => {
   });
 
   // Add time ranges to each step
-  const sortedRecipeTimeline = recipeTimeline.map(step => {
+  const steps = recipeTimeline.map(step => {
     const { startTime, endTime } = (
       Object(_getStepTimeRange_js__WEBPACK_IMPORTED_MODULE_2__["getStepTimeRange"])(step, recipeTimeline)
     );
@@ -1282,13 +1289,65 @@ const getRecipesTimeline = async (recipeNames) => {
       ...step,
       ingredients: fillOutIngredients(step.ingredients),
     };
-  }).sort((a,b) => {
-    return a.startTime - b.startTime;
   });
 
   // Delay response to mock request latency
   await setTimeout(() => {}, 300);
-  return sortedRecipeTimeline;
+
+  if (sort === 'time') {
+    return steps.sort((a,b) => {
+      return a.startTime - b.startTime;
+    });
+  }
+
+  if (sort === 'flow') {
+    return Object(_sortByFlow_js__WEBPACK_IMPORTED_MODULE_3__["sortByFlow"])(steps);
+  }
+};
+
+
+/***/ }),
+
+/***/ "./src/api/sortByFlow.js":
+/*!*******************************!*\
+  !*** ./src/api/sortByFlow.js ***!
+  \*******************************/
+/*! exports provided: sortByFlow */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByFlow", function() { return sortByFlow; });
+/**
+ * Sorts a list of recipe steps according to "flow" by searching
+ * the leftmost branch of each node and adding lead nodes to an array.
+ * 
+ * @param {Array<Object>} steps - An unsorted list of recipe steps
+ * @returns {Array<Object>} - A sorted list of recipe steps
+ */
+const sortByFlow = (steps) => {
+  // Flattens all dependencies
+  const allDependencies = steps.reduce((acc, s) => {
+    return [...acc, ...s.dependencies];
+  }, []);
+
+  return steps.filter((s) => {
+    return !allDependencies.includes(s.stepName);
+  }).reduce((acc, s) => {
+    return [...acc, ...getNestedSteps(s, steps)];
+  }, []);
+};
+
+const getNestedSteps = (step, allSteps) => {
+  const childSteps = allSteps.filter((s) => {
+    return step.dependencies.includes(s.stepName);
+  }).sort((a,b) => {
+    return a.startTime - b.startTime;
+  }).reduce((acc, s) => {
+    return [...acc, ...getNestedSteps(s, allSteps)];
+  }, []);
+
+  return [...childSteps, step];
 };
 
 
@@ -1437,10 +1496,11 @@ class RecipeTimeline {
   constructor(node, data, events={}) {
     this.selection = d3.select(node);
     this.data = data;
-    this.components = {};
+    this.selections = {};
 
-    this.stepList = this.selection.append('ul')
+    this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
+
     // loadPatterns(this.svg);
     // Initialize main vis canvas, not html5 canvas
     // this.rescaleCanvas();
@@ -1448,11 +1508,9 @@ class RecipeTimeline {
     this.setTimeScale();
     this.setStepScale();
 
-    this.renderSteps();
-    this.renderStepHeaders();
-    this.renderStepBars();
-
-    console.log(data);
+    // this.renderSteps();
+    // this.renderStepHeaders();
+    // this.renderStepBars();
   }
 
   setTimeScale() {
@@ -1468,16 +1526,24 @@ class RecipeTimeline {
   }
 
   renderSteps() {
-    this.components.steps = this.stepList.selectAll('li')
-      .data(this.data)
-      .join('li')
-      .attr('class', 'step')
-      .style('top', d => `${this.stepScale(d.stepName)}px`);
+    this.selections.stepList
+      .selectAll('li.step')
+      .data(this.data, d => d.stepName)
+      .join(
+        enter => enter.append('li')
+          .attr('class', 'step')
+          .call(this.renderStepHeaders.bind(this))
+          .call(this.renderStepBars.bind(this))
+          .style('top', d => `${this.stepScale(d.stepName)}px`),
+        update => update.transition()
+          .style('top', d => `${this.stepScale(d.stepName)}px`)
+      );
   }
 
-  renderStepHeaders() {
-    const stepHeader = this.components.steps.append('span')
-      .attr('class', 'step-header');
+  renderStepHeaders(selection) {
+    const stepHeader = selection.append('span')
+      .attr('class', 'step-header')
+      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
 
     stepHeader.append('span')
       .attr('class', 'step-header')
@@ -1488,51 +1554,20 @@ class RecipeTimeline {
       .text(d => `${d.duration} minutes`);
   }
 
-  renderStepBars() {
-    this.components.steps.append('div')
+  renderStepBars(selection) {
+    selection.append('div')
       .attr('class', 'step-bar')
       .style('width', d => `${this.timeScale(d.duration)}%`)
-      .attr('height', _style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"]);
+      .attr('height', _style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"])
+      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
   }
 
-  resortSteps(data) {
+  setSteps(data) {
     this.data = data;
+    this.setTimeScale();
     this.setStepScale();
-
-    this.components.steps
-      .data(this.data, d => d.stepName)
-      // .order()
-      .transition()
-      .style('top', d => `${this.stepScale(d.stepName)}px`);
+    this.renderSteps();
   }
-
-    
-
-    // this.components.stepLabels = this.components.steps
-    //   .append('text')
-    //   .attr('class', 'step-name-label')
-    //   .text(d => d.stepName);
-
-    // this.components.timeLabels = this.components.steps
-    //   .append('text')
-    //   .attr('class', 'step-time-label')
-    //   .attr('transform', (d, i) => {
-    //     // HACK to place labels side by side
-    //     const x = this.components.stepLabels
-    //       .filter((d, i0) => i === i0)
-    //       .node()
-    //       .getBoundingClientRect().width;
-    //     return `translate(${x + 5},0)`;
-    //   })
-    //   .text(d => `${d.duration} minutes`);
-
-    // this.components.stepBars = this.components.steps
-    //   .append('rect')
-    //   .attr('height', barHeight)
-    //   .attr('width', d => this.timeScale(d.duration))
-    //   .attr('x', 0)
-    //   .attr('y', 5);
-  
 }
 
 
