@@ -1,5 +1,7 @@
 <template>
-  <div class="example">hello</div>
+  <div class="timeline-view">
+    <button v-on:click="resort">Resort</button>
+  </div>
 </template>
 
 <script>
@@ -21,12 +23,22 @@ export default {
         'tofu',
         'greens'
       ],
-      recipeTimeline: null
+      recipeTimeline: null,
+      data: [],
     }
   },
   mounted: async function () {
-    const data = await getRecipesTimeline(['rice', 'tofu', 'greens']);
-    this.recipeTimeline = new RecipeTimeline(this.$el, data);
+    this.data = await getRecipesTimeline(['rice', 'tofu', 'greens']);
+    this.recipeTimeline = new RecipeTimeline(this.$el, this.data);
+  },
+  methods: {
+    resort: function (event) {
+      // bad random sort
+      const resortedData = this.data.sort(function() {
+        return .5 - Math.random();
+      });
+      this.recipeTimeline.resortSteps(resortedData);
+    }
   }
 }
 </script>

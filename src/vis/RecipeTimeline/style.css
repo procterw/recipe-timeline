@@ -3,12 +3,20 @@
   font-size: 13px;
 }
 
-.step-time-label {
-  font-style: italic;
-  fill: #666;
+.step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
-.step-group rect {
-  /* mask: url(#mask-stripe); */
-  /* fill: black; */
+.step {
+  display: block;
+  position: absolute;
+  top: 0;
+}
+
+.step-bar {
+  height: 18px;
+  background: black;
 }

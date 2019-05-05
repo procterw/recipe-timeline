@@ -1,6 +1,7 @@
 import * as recipes from'./data/recipes.js';
 import { ingredientDb } from './data/ingredientDb.js';
 import { getStepTimeRange } from './getStepTimeRange.js';
+import { sortByFlow } from './sortByFlow.js';
 
 /**
  * Mocks an API call which fills out the ingredient list in recipe
@@ -24,9 +25,10 @@ const fillOutIngredients = ingredients => {
  * @constructor
  * @param {Array[String]} recipeNames - A list of recipes to retrieve
  * @param {Array<Object>} data - An array of recipes
- * @returns {Array<Object>} - An array of recipe steps in optimal order
+ * @param {String} sort - A string indicating how to sort the steps
+ * @returns {Array<Object>} - An array of recipe steps in some order
  */
-export const getRecipesTimeline = async (recipeNames) => {
+export const getRecipesTimeline = async (recipeNames, sort='time') => {
   let recipeTimeline = [];
   let maxStartTime = 0;
 
@@ -39,7 +41,7 @@ export const getRecipesTimeline = async (recipeNames) => {
   });
 
   // Add time ranges to each step
-  const sortedRecipeTimeline = recipeTimeline.map(step => {
+  const steps = recipeTimeline.map(step => {
     const { startTime, endTime } = (
       getStepTimeRange(step, recipeTimeline)
     );
@@ -65,11 +67,18 @@ export const getRecipesTimeline = async (recipeNames) => {
       ...step,
       ingredients: fillOutIngredients(step.ingredients),
     };
-  }).sort((a,b) => {
-    return a.startTime - b.startTime;
   });
 
   // Delay response to mock request latency
   await setTimeout(() => {}, 300);
-  return sortedRecipeTimeline;
+
+  if (sort === 'time') {
+    return steps.sort((a,b) => {
+      return a.startTime - b.startTime;
+    });
+  }
+
+  if (sort === 'flow') {
+    return sortByFlow(startTimeSortedRecipeTimeline);
+  }
 };

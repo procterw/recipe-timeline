@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { margins, barHeight, stepHeight } from './style.js';
-import { loadPatterns } from './loadPatterns';
+// import { loadPatterns } from './loadPatterns';
 import './style.css';
 
 export class RecipeTimeline {
@@ -18,175 +18,98 @@ export class RecipeTimeline {
     this.data = data;
     this.components = {};
 
-    this.svg = this.selection.append('svg');
-    loadPatterns(this.svg);
+    this.stepList = this.selection.append('ul')
+      .attr('class', 'step-list');
+    // loadPatterns(this.svg);
     // Initialize main vis canvas, not html5 canvas
-    this.rescaleCanvas();
+    // this.rescaleCanvas();
     
     this.setTimeScale();
     this.setStepScale();
 
     this.renderSteps();
+    this.renderStepHeaders();
+    this.renderStepBars();
 
     console.log(data);
-
-    // this.data = data;
-
-    // this.timeScale = d3.scaleLinear()
-    //   .domain([0, d3.max(data, d => d.endTime)])
-    //   .range([0, this.width - margins.r - margins.l]);
-
-    // this.selection = selection
-    //   .append('section')
-    //   .attr('class', 'timeline-vis')
-    //   .html(timelineStyle);
-
-    // this.fillScale = d3.scaleOrdinal()
-    //   .domain([0, 0.5, 1])
-    //   .range(['passive', 'semi-active', 'active']);
-
-  }
-
-  rescaleCanvas() {
-    this._width = this.selection.node().getBoundingClientRect().width;
-    this.width = this._width - margins.r - margins.l;
-
-    // TODO
-    this.height = stepHeight * this.data.length;
-    this._height = this.height + margins.t + margins.b;
-
-    this.svg
-      .attr('width', this._width)
-      .attr('height', this._height);
-
-    this.canvas = this.svg.append('g')
-      .attr('transform', `translate(${margins.r},${margins.t})`);
   }
 
   setTimeScale() {
     this.timeScale = d3.scaleLinear()
       .domain([0, d3.max(this.data, d => d.endTime)])
-      .range([0, this.width]);
+      .range([0, 100]);
   }
 
   setStepScale() {
     this.stepScale = d3.scaleBand()
       .domain(this.data.map(d => d.stepName))
-      .range([0, this.height]); // TODO use id or key
+      .range([0, this.data.length * stepHeight]); // TODO use id or key
   }
 
   renderSteps() {
-    this.components.steps = this.canvas.selectAll('g')
+    this.components.steps = this.stepList.selectAll('li')
       .data(this.data)
-      .enter()
-      .append('g')
-      .attr('class', 'step-group')
-      .attr('transform', d => {
-        const x = this.timeScale(d.startTime);
-        const y = this.stepScale(d.stepName);
-        return `translate(${x},${y})`;
-      });
-
-    this.components.stepLabels = this.components.steps
-      .append('text')
-      .attr('class', 'step-name-label')
-      .text(d => d.stepName);
-
-    this.components.timeLabels = this.components.steps
-      .append('text')
-      .attr('class', 'step-time-label')
-      .attr('transform', (d, i) => {
-        // HACK to place labels side by side
-        const x = this.components.stepLabels
-          .filter((d, i0) => i === i0)
-          .node()
-          .getBoundingClientRect().width;
-        return `translate(${x + 5},0)`;
-      })
-      .text(d => `${d.duration} minutes`);
-
-    this.components.stepBars = this.components.steps
-      .append('rect')
-      .attr('height', barHeight)
-      .attr('width', d => this.timeScale(d.duration))
-      .attr('x', 0)
-      .attr('y', 5);
+      .join('li')
+      .attr('class', 'step')
+      .style('top', d => `${this.stepScale(d.stepName)}px`);
   }
 
-  // renderRecipes() {
-  //   const nestedData = d3.nest()
-  //     .key(d => d.recipeName)
-  //     .entries(this.data);
+  renderStepHeaders() {
+    const stepHeader = this.components.steps.append('span')
+      .attr('class', 'step-header');
+
+    stepHeader.append('span')
+      .attr('class', 'step-header')
+      .text(d => d.stepName);
+
+    stepHeader.append('span')
+      .attr('class', 'step-duration')
+      .text(d => `${d.duration} minutes`);
+  }
+
+  renderStepBars() {
+    this.components.steps.append('div')
+      .attr('class', 'step-bar')
+      .style('width', d => `${this.timeScale(d.duration)}%`)
+      .attr('height', barHeight);
+  }
+
+  resortSteps(data) {
+    this.data = data;
+    this.setStepScale();
+
+    this.components.steps
+      .data(this.data, d => d.stepName)
+      // .order()
+      .transition()
+      .style('top', d => `${this.stepScale(d.stepName)}px`);
+  }
+
     
-  //   const recipeSection = this.selection.selectAll('section')
-  //     .data(nestedData)
-  //     .enter()
-  //     .append('section');
 
-  //   recipeSection
-  //     .html(d => `<h2>${d.key}</h2>`);
+    // this.components.stepLabels = this.components.steps
+    //   .append('text')
+    //   .attr('class', 'step-name-label')
+    //   .text(d => d.stepName);
 
-  //   recipeSection
-  //     .call(this.renderSteps.bind(this));
-  // }
+    // this.components.timeLabels = this.components.steps
+    //   .append('text')
+    //   .attr('class', 'step-time-label')
+    //   .attr('transform', (d, i) => {
+    //     // HACK to place labels side by side
+    //     const x = this.components.stepLabels
+    //       .filter((d, i0) => i === i0)
+    //       .node()
+    //       .getBoundingClientRect().width;
+    //     return `translate(${x + 5},0)`;
+    //   })
+    //   .text(d => `${d.duration} minutes`);
 
-  // renderSteps(recipes) {
-  //   recipes.call(this.renderTimeAxis.bind(this));
-
-  //   this.stepWrapper = recipes
-  //     .append('ul')
-  //     .style('padding-left', `${margins.l}px`)
-  //     .attr('class', 'steps');
-
-  //   const steps = this.stepWrapper
-  //     .selectAll('li')
-  //     .data(d => d.values)
-  //     .enter()
-  //     .append('li')
-  //     .attr('class', 'step')
-  //     .style('padding-left', d => `${this.timeScale(d.startTime)}px`)
-  //     .on('click', function() {
-  //       d3.select(this).classed('expanded', !d3.select(this).classed('expanded'));
-  //     });
-
-  //   // duration bars
-  //   steps.append('div')
-  //     .attr('class', d => this.fillScale(d.type.involvement))
-  //     .classed('step-duration', true)
-  //     .style('width', d => `${this.timeScale(d.elapsedTime)}px`);
-
-  //   // step labels
-  //   steps.append('span')
-  //     .attr('class', 'step-label')
-  //     .text(d => d.stepName);
-
-  //   const fullStep = steps.append('div')
-  //     .attr('class', 'full-step');
-    
-  //   fullStep.append('p')
-  //     .attr('class', 'step-instructions')
-  //     .text(d => d.instructions);
-
-  //   fullStep.append('ul')
-  //     .attr('class', 'step-ingredients')
-  //     .selectAll('li')
-  //     .data(d => d.ingredients)
-  //     .enter()
-  //     .append('li')
-  //     .attr('class', 'step-ingredient')
-  //     .text(d => `${d.measurement} ${d.name}`);
-  // }
-
-  // renderTimeAxis(selection) {
-  //   selection
-  //     .append('svg')
-  //     .attr('height', 22)
-  //     .attr('width', this.width)
-  //     .append('g')
-  //     .attr('class', 'axis')
-  //     .attr('transform', `translate(${margins.l},20)`)
-  //     .call(
-  //       d3.axisTop(this.timeScale)
-  //     );
-  // }
+    // this.components.stepBars = this.components.steps
+    //   .append('rect')
+    //   .attr('height', barHeight)
+    //   .attr('width', d => this.timeScale(d.duration))
+    //   .attr('x', 0)
+    //   .attr('y', 5);
+  
 }
