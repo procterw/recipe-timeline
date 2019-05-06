@@ -95,7 +95,7 @@
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-bar {\n  height: 18px;\n  background: black;\n}", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-bar {\n  height: 15px;\n  border: 2px solid black;\n  border-radius: 2px;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}", ""]);
 
 
 
@@ -230,23 +230,27 @@ const routerStore = {
   data () {
     return {
       recipes: [
-        'rice',
-        'tofu',
-        'greens'
+        'tempeh'
       ],
+      // recipes: [
+      //   'rice',
+      //   'tofu',
+      //   'greens'
+      // ],
       recipeTimeline: null
     }
   },
   mounted: function () {
     this.recipeTimeline = new _vis_RecipeTimeline__WEBPACK_IMPORTED_MODULE_0__["RecipeTimeline"](this.$el, []);
+    this.sortByStartTime();
   },
   methods: {
     sortByStartTime: async function() {
-      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(['rice', 'tofu', 'greens'], 'time');
+      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(this.recipes, 'time');
       this.recipeTimeline.setSteps(data);
     },
     sortByFlow: async function() {
-      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(['rice', 'tofu', 'greens'], 'flow');
+      const data = await Object(_api_mockApi_js__WEBPACK_IMPORTED_MODULE_1__["getRecipesTimeline"])(this.recipes, 'flow');
       this.recipeTimeline.setSteps(data);
     }
   }
@@ -1501,16 +1505,9 @@ class RecipeTimeline {
     this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
 
-    // loadPatterns(this.svg);
-    // Initialize main vis canvas, not html5 canvas
-    // this.rescaleCanvas();
-    
-    this.setTimeScale();
-    this.setStepScale();
-
-    // this.renderSteps();
-    // this.renderStepHeaders();
-    // this.renderStepBars();
+    this.fillScale = d3.scaleOrdinal()
+      .domain([0, 0.5, 1])
+      .range(['passive', 'semi-active', 'active']);
   }
 
   setTimeScale() {
@@ -1556,7 +1553,7 @@ class RecipeTimeline {
 
   renderStepBars(selection) {
     selection.append('div')
-      .attr('class', 'step-bar')
+      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
       .style('width', d => `${this.timeScale(d.duration)}%`)
       .attr('height', _style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"])
       .style('margin-left', d => `${this.timeScale(d.startTime)}%`);

@@ -20,23 +20,27 @@ export default {
   data () {
     return {
       recipes: [
-        'rice',
-        'tofu',
-        'greens'
+        'tempeh'
       ],
+      // recipes: [
+      //   'rice',
+      //   'tofu',
+      //   'greens'
+      // ],
       recipeTimeline: null
     }
   },
   mounted: function () {
     this.recipeTimeline = new RecipeTimeline(this.$el, []);
+    this.sortByStartTime();
   },
   methods: {
     sortByStartTime: async function() {
-      const data = await getRecipesTimeline(['rice', 'tofu', 'greens'], 'time');
+      const data = await getRecipesTimeline(this.recipes, 'time');
       this.recipeTimeline.setSteps(data);
     },
     sortByFlow: async function() {
-      const data = await getRecipesTimeline(['rice', 'tofu', 'greens'], 'flow');
+      const data = await getRecipesTimeline(this.recipes, 'flow');
       this.recipeTimeline.setSteps(data);
     }
   }

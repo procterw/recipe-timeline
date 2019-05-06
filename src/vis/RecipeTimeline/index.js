@@ -21,16 +21,9 @@ export class RecipeTimeline {
     this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
 
-    // loadPatterns(this.svg);
-    // Initialize main vis canvas, not html5 canvas
-    // this.rescaleCanvas();
-    
-    this.setTimeScale();
-    this.setStepScale();
-
-    // this.renderSteps();
-    // this.renderStepHeaders();
-    // this.renderStepBars();
+    this.fillScale = d3.scaleOrdinal()
+      .domain([0, 0.5, 1])
+      .range(['passive', 'semi-active', 'active']);
   }
 
   setTimeScale() {
@@ -76,7 +69,7 @@ export class RecipeTimeline {
 
   renderStepBars(selection) {
     selection.append('div')
-      .attr('class', 'step-bar')
+      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
       .style('width', d => `${this.timeScale(d.duration)}%`)
       .attr('height', barHeight)
       .style('margin-left', d => `${this.timeScale(d.startTime)}%`);

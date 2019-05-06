@@ -19,6 +19,31 @@
 }
 
 .step-bar {
-  height: 18px;
-  background: black;
+  height: 15px;
+  border: 2px solid black;
+  border-radius: 2px;
+}
+
+.step-bar.passive {
+  background: white;
+}
+
+.step-bar.semi-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    white,
+    white 3px,
+    black 3px,
+    black 4px
+  );
+}
+
+.step-bar.active {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 3px,
+    white 3px,
+    white 4px
+  );
 }
