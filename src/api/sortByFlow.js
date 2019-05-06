@@ -1,3 +1,5 @@
+import { recipeStepsToTree } from './trees';
+
 /**
  * Sorts a list of recipe steps according to "flow" by searching
  * the leftmost branch of each node and adding lead nodes to an array.
@@ -6,26 +8,34 @@
  * @returns {Array<Object>} - A sorted list of recipe steps
  */
 export const sortByFlow = (steps) => {
-  // Flattens all dependencies
-  const allDependencies = steps.reduce((acc, s) => {
-    return [...acc, ...s.dependencies];
-  }, []);
-
-  return steps.filter((s) => {
-    return !allDependencies.includes(s.stepName);
-  }).reduce((acc, s) => {
-    return [...acc, ...getNestedSteps(s, steps)];
+  const stepTrees = recipeStepsToTree(steps);
+  
+  return stepTrees.reduce((sortedSteps, tree) => {
+    return [...sortedSteps, ...getNestedSteps(tree)];
   }, []);
 };
 
-const getNestedSteps = (step, allSteps) => {
-  const childSteps = allSteps.filter((s) => {
-    return step.dependencies.includes(s.stepName);
-  }).sort((a,b) => {
+const getMaxChildDepth = (tree, parentLevel = 0) => {
+  if (!tree.children.length) {
+    return parentLevel;
+  }
+
+  return Math.max(...tree.children.map(child => {
+    return getMaxChildDepth(child, parentLevel + 1);
+  }));
+};
+
+const getNestedSteps = (step) => {
+  const sortedChildSteps = step.children.sort((a,b) => {
+    const depthDiff = getMaxChildDepth(b) - getMaxChildDepth(a);
+    if (depthDiff !== 0) return depthDiff;
     return a.startTime - b.startTime;
-  }).reduce((acc, s) => {
-    return [...acc, ...getNestedSteps(s, allSteps)];
+  });
+
+  const nestedChildSteps = sortedChildSteps.reduce((acc, s) => {
+    return [...acc, ...getNestedSteps(s),];
   }, []);
 
-  return [...childSteps, step];
+  // parent nodes come after children
+  return [...nestedChildSteps, step];
 };

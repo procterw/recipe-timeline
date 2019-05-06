@@ -1158,7 +1158,6 @@ const tempeh = {
       ingredients: [],
       dependencies: [
         'Add soy sauce to tempeh',
-        'Add soy sauce to mushrooms',
         'Add spinach',
         'Drain noodles',
         'Slice ginger',
@@ -1322,6 +1321,9 @@ const getRecipesTimeline = async (recipeNames, sort='time') => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByFlow", function() { return sortByFlow; });
+/* harmony import */ var _trees__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./trees */ "./src/api/trees.js");
+
+
 /**
  * Sorts a list of recipe steps according to "flow" by searching
  * the leftmost branch of each node and adding lead nodes to an array.
@@ -1330,28 +1332,83 @@ __webpack_require__.r(__webpack_exports__);
  * @returns {Array<Object>} - A sorted list of recipe steps
  */
 const sortByFlow = (steps) => {
+  const stepTrees = Object(_trees__WEBPACK_IMPORTED_MODULE_0__["recipeStepsToTree"])(steps);
+  
+  return stepTrees.reduce((sortedSteps, tree) => {
+    return [...sortedSteps, ...getNestedSteps(tree)];
+  }, []);
+};
+
+const getMaxChildDepth = (tree, parentLevel = 0) => {
+  if (!tree.children.length) {
+    return parentLevel;
+  }
+
+  return Math.max(...tree.children.map(child => {
+    return getMaxChildDepth(child, parentLevel + 1);
+  }));
+};
+
+const getNestedSteps = (step) => {
+  const sortedChildSteps = step.children.sort((a,b) => {
+    const depthDiff = getMaxChildDepth(b) - getMaxChildDepth(a);
+    if (depthDiff !== 0) return depthDiff;
+    return a.startTime - b.startTime;
+  });
+
+  const nestedChildSteps = sortedChildSteps.reduce((acc, s) => {
+    return [...acc, ...getNestedSteps(s),];
+  }, []);
+
+  // parent nodes come after children
+  return [...nestedChildSteps, step];
+};
+
+
+/***/ }),
+
+/***/ "./src/api/trees.js":
+/*!**************************!*\
+  !*** ./src/api/trees.js ***!
+  \**************************/
+/*! exports provided: recipeStepsToTree, flattenTree */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recipeStepsToTree", function() { return recipeStepsToTree; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flattenTree", function() { return flattenTree; });
+// Trees are a better data structure for ______
+
+// Converts a flat array of recipes to a tree structure based on
+// "dependencies". Adds
+const recipeStepsToTree = (steps) => {
   // Flattens all dependencies
   const allDependencies = steps.reduce((acc, s) => {
     return [...acc, ...s.dependencies];
   }, []);
 
-  return steps.filter((s) => {
+  const rootSteps = steps.filter((s) => {
     return !allDependencies.includes(s.stepName);
-  }).reduce((acc, s) => {
-    return [...acc, ...getNestedSteps(s, steps)];
-  }, []);
+  });
+
+  return rootSteps.map(s => buildTree(s, steps));
+  
 };
 
-const getNestedSteps = (step, allSteps) => {
+const buildTree = (step, allSteps) => {
   const childSteps = allSteps.filter((s) => {
     return step.dependencies.includes(s.stepName);
-  }).sort((a,b) => {
-    return a.startTime - b.startTime;
-  }).reduce((acc, s) => {
-    return [...acc, ...getNestedSteps(s, allSteps)];
-  }, []);
+  });
 
-  return [...childSteps, step];
+  return {
+    ...step,
+    children: childSteps.map(s => buildTree(s, allSteps))
+  };
+};
+
+const flattenTree = () => {
+
 };
 
 

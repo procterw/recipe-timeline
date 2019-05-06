@@ -393,7 +393,6 @@ export const tempeh = {
       ingredients: [],
       dependencies: [
         'Add soy sauce to tempeh',
-        'Add soy sauce to mushrooms',
         'Add spinach',
         'Drain noodles',
         'Slice ginger',

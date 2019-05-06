@@ -4,7 +4,7 @@
   "description": "What do recipes look like?",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "npx jest",
     "lint": "npx eslint js"
   },
   "repository": {
@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/procterw/recipe-timeline#readme",
   "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-jest": "^24.8.0",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
+    "jest": "^24.8.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
     "vue-router": "^3.0.6",
