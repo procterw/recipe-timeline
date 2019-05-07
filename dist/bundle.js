@@ -95,7 +95,7 @@
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #ccc;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}", ""]);
 
 
 
@@ -229,14 +229,14 @@ const routerStore = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data () {
     return {
-      recipes: [
-        'tempeh'
-      ],
       // recipes: [
-      //   'rice',
-      //   'tofu',
-      //   'greens'
+      //   'tempeh'
       // ],
+      recipes: [
+        'rice',
+        'tofu',
+        'greens'
+      ],
       recipeTimeline: null
     }
   },
@@ -1452,8 +1452,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Timeline_vue_vue_type_template_id_e945440a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Timeline.vue?vue&type=template&id=e945440a& */ "./src/views/Timeline.vue?vue&type=template&id=e945440a&");
 /* harmony import */ var _Timeline_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Timeline.vue?vue&type=script&lang=js& */ "./src/views/Timeline.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _Timeline_vue_vue_type_custom_index_0_blockType_section__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Timeline.vue?vue&type=custom&index=0&blockType=section */ "./src/views/Timeline.vue?vue&type=custom&index=0&blockType=section");
-/* harmony import */ var _Timeline_vue_vue_type_custom_index_0_blockType_section__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Timeline_vue_vue_type_custom_index_0_blockType_section__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -1472,25 +1470,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
-/* custom blocks */
-
-if (typeof _Timeline_vue_vue_type_custom_index_0_blockType_section__WEBPACK_IMPORTED_MODULE_3___default.a === 'function') _Timeline_vue_vue_type_custom_index_0_blockType_section__WEBPACK_IMPORTED_MODULE_3___default()(component)
-
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "src/views/Timeline.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./src/views/Timeline.vue?vue&type=custom&index=0&blockType=section":
-/*!**************************************************************************!*\
-  !*** ./src/views/Timeline.vue?vue&type=custom&index=0&blockType=section ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ }),
 
@@ -1602,17 +1585,22 @@ class RecipeTimeline {
       .call(this.renderStepHeaders.bind(this));
   }
 
+  // returns 0 for "place left", 1 for "place right"
+  getBarPlacement(d) {
+    const startOffset = this.timeScale(d.startTime);
+    const endOffset = 100 - this.timeScale(d.endTime);
+    return startOffset < endOffset ? 0 : 1;
+  }
+
   renderStepHeaders(selection) {
     const stepHeader = selection.append('span')
       .attr('class', 'step-header')
       .style('transform', d => {
-        let x;
-        if (this.timeScale(d.endTime) < 55) x = '100%';
-        if (this.timeScale(d.endTime) > 45) x = '-100%';
+        const x = this.getBarPlacement(d) ? '-100%' : '100%';
         return `translate(${x},0)`;
       })
-      .style('left', d => this.timeScale(d.endTime) > 45 ? '-8px' : 'auto')
-      .style('right', d => this.timeScale(d.endTime) < 55 ? '-8px' : 'auto');
+      .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
+      .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto');
 
     stepHeader.append('span')
       .attr('class', 'step-title')
@@ -1659,111 +1647,20 @@ if(false) {}
 /*!*****************************************!*\
   !*** ./src/vis/RecipeTimeline/style.js ***!
   \*****************************************/
-/*! exports provided: margins, stepHeight, barHeight, timelineStyle */
+/*! exports provided: margins, barHeight, stepHeight */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "margins", function() { return margins; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stepHeight", function() { return stepHeight; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "barHeight", function() { return barHeight; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "timelineStyle", function() { return timelineStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stepHeight", function() { return stepHeight; });
 const margins = { t: 10, r: 100, b: 10, l: 20 };
 
-const stepHeight = 38;
 const barHeight = 37;
 
-const timelineStyle = `
-  <style>
-    .timeline-vis {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 13px;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .timeline-vis .steps {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .timeline-vis .step {
-      margin: 0 0 2px 0;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .timeline-vis .step-label {
-      font-style: italic;
-    }
-
-    .timeline-vis .step.expanded {
-      background: #e8f3fe;
-      1px solid #c8d6e5;
-    }
-
-    .timeline-vis .step:hover {
-      background: #dbe9f8;
-    }
-
-    .timeline-vis .step-duration {
-      margin-top: 2px;
-      height: 10px;
-      border: 2px solid black;
-    }
-
-    .timeline-vis .step-duration.passive {
-      background: white;
-    }
-
-    .timeline-vis .step-duration.semi-active {
-      background: repeating-linear-gradient(
-        -45deg,
-        white,
-        white 3px,
-        black 3px,
-        black 4px
-      );
-    }
-
-    .timeline-vis .step-duration.active {
-      background: repeating-linear-gradient(
-        -45deg,
-        black,
-        black 3px,
-        white 3px,
-        white 4px
-      );
-    }
-
-    .timeline-vis .step .full-step {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0;
-      transition: max-height 3s padding 3s;
-    }
-
-    .timeline-vis .step.expanded .full-step {
-      max-height: 500px;
-      padding: 4px 0;
-    }
-
-    .timeline-vis .step-ingredients {
-      padding-left: 24px;
-    }
-
-    .timeline-vis .step-ingredient {
-
-    }
-
-    .timeline-vis .step-instructions {
-      margin: 2px 0 4px;
-    }
-
-  </style>
-`;
-
+const stepMarginBottom = 2;
+const stepHeight = barHeight + stepMarginBottom;
 
 /***/ })
 

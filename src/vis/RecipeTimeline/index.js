@@ -61,17 +61,22 @@ export class RecipeTimeline {
       .call(this.renderStepHeaders.bind(this));
   }
 
+  // returns 0 for "place left", 1 for "place right"
+  getBarPlacement(d) {
+    const startOffset = this.timeScale(d.startTime);
+    const endOffset = 100 - this.timeScale(d.endTime);
+    return startOffset < endOffset ? 0 : 1;
+  }
+
   renderStepHeaders(selection) {
     const stepHeader = selection.append('span')
       .attr('class', 'step-header')
       .style('transform', d => {
-        let x;
-        if (this.timeScale(d.endTime) < 55) x = '100%';
-        if (this.timeScale(d.endTime) > 45) x = '-100%';
+        const x = this.getBarPlacement(d) ? '-100%' : '100%';
         return `translate(${x},0)`;
       })
-      .style('left', d => this.timeScale(d.endTime) > 45 ? '-8px' : 'auto')
-      .style('right', d => this.timeScale(d.endTime) < 55 ? '-8px' : 'auto');
+      .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
+      .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto');
 
     stepHeader.append('span')
       .attr('class', 'step-title')
