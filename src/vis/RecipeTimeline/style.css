@@ -23,19 +23,18 @@
   cursor: pointer;
 }
 
-.step:hover {
-  opacity: 0.5;
-}
-
 /* ------------ */
 /* ------------ */
 /* full step content, the ingredients and direction */
 
-.step .full-step {
-  /* visibility: hidden; */
+.step .full-step-view {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
 }
 
-.step.open .full-step {
+.step.open .full-step-view {
+  opacity: 1;
   visibility: visible;
 }
 
@@ -71,6 +70,10 @@
   border-radius: 2px;
   box-sizing: border-box;
   position: relative;
+}
+
+.step:hover .step-bar {
+  opacity: 0.6;
 }
 
 .step-bar.passive {
