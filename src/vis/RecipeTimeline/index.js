@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-import { margins, barHeight, stepHeight } from './style.js';
+import { barHeight, stepHeight } from './style.js';
+import FullStep from './FullStep.vue';
 // import { loadPatterns } from './loadPatterns';
 import './style.css';
 
@@ -17,6 +18,9 @@ export class RecipeTimeline {
     this.selection = d3.select(node);
     this.data = data;
     this.selections = {};
+    this.state = {
+      visibleSteps: {}
+    };
 
     this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
@@ -38,7 +42,30 @@ export class RecipeTimeline {
       .range([0, this.data.length * stepHeight]); // TODO use id or key
   }
 
+  // Gets the "top" property for each step. Because we have to use absolute
+  // layout to use transitions, we have to manually add the height of lal
+  // open parent steps and add it to the stepScale
+  getStepTopOffset(d, i) {
+    const parentSteps = this.data.map(d => d.stepName).slice(0, i);
+    const cumOffset = parentSteps.map(step => {
+      return this.state.visibleSteps[step] || 0;
+    }).reduce((cumOffset, offset) => cumOffset + offset, 0);
+    return `${this.stepScale(d.stepName) + cumOffset}px`;
+  }
+
   renderSteps() {
+    // We need to recompute the layout each time a step is opened or
+    // closed. We track the height of open steps in the state, the rerender
+    // the steps.
+    const setVisibleState = (d, isOpen, height = 0) => {
+      if (isOpen) { // close
+        delete this.state.visibleSteps[d.stepName];
+      } else { // open
+        this.state.visibleSteps[d.stepName] = height;
+      }
+      this.renderSteps();
+    };
+
     this.selections.stepList
       .selectAll('li.step')
       .data(this.data, d => d.stepName)
@@ -46,10 +73,17 @@ export class RecipeTimeline {
         enter => enter.append('li')
           .attr('class', 'step')
           .call(this.renderStepBars.bind(this))
-          .style('top', d => `${this.stepScale(d.stepName)}px`),
+          .call(this.renderFullStep.bind(this))
+          .style('top', (d, i) => this.getStepTopOffset(d,i)),
         update => update.transition()
-          .style('top', d => `${this.stepScale(d.stepName)}px`)
-      );
+          .style('top', (d, i) => this.getStepTopOffset(d,i)),
+      )
+      .on('click', function(d) {
+        const isOpen = d3.select(this).classed('open');
+        const fullStepHeight = this.childNodes[1].getBoundingClientRect().height;
+        setVisibleState(d, isOpen, fullStepHeight);
+        d3.select(this).classed('open', !isOpen);
+      });
   }
 
   renderStepBars(selection) {
@@ -85,6 +119,15 @@ export class RecipeTimeline {
     stepHeader.append('span')
       .attr('class', 'step-duration')
       .text(d => `${d.duration} minutes`);
+  }
+
+  renderFullStep(selection) {
+    selection.each(function(d) {
+      new Vue({
+        el: d3.select(this).append('div').node(),
+        render: h => h(FullStep, { props: { ...d } }),
+      });
+    }); 
   }
 
   setSteps(data) {
