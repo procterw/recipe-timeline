@@ -18,10 +18,30 @@
   box-sizing: border-box;
 }
 
+.step-header {
+  position: absolute;
+  white-space: nowrap;
+  font-family: 'Libre Baskerville', serif;
+  line-height: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.step-title {
+  font-size: 13px;
+  display: block;
+}
+
+.step-duration {
+  font-size: 11px;
+  font-style: italic;
+  color: #888;
+}
+
 .step-bar {
-  height: 15px;
   border: 2px solid black;
   border-radius: 2px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .step-bar.passive {

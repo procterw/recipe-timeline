@@ -95,7 +95,7 @@
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-bar {\n  height: 15px;\n  border: 2px solid black;\n  border-radius: 2px;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #ccc;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}", ""]);
 
 
 
@@ -1586,7 +1586,6 @@ class RecipeTimeline {
       .join(
         enter => enter.append('li')
           .attr('class', 'step')
-          .call(this.renderStepHeaders.bind(this))
           .call(this.renderStepBars.bind(this))
           .style('top', d => `${this.stepScale(d.stepName)}px`),
         update => update.transition()
@@ -1594,26 +1593,34 @@ class RecipeTimeline {
       );
   }
 
+  renderStepBars(selection) {
+    selection.append('div')
+      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
+      .style('width', d => `${this.timeScale(d.duration)}%`)
+      .style('height', `${_style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"]}px`)
+      .style('margin-left', d => `${this.timeScale(d.startTime)}%`)
+      .call(this.renderStepHeaders.bind(this));
+  }
+
   renderStepHeaders(selection) {
     const stepHeader = selection.append('span')
       .attr('class', 'step-header')
-      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
+      .style('transform', d => {
+        let x;
+        if (this.timeScale(d.endTime) < 55) x = '100%';
+        if (this.timeScale(d.endTime) > 45) x = '-100%';
+        return `translate(${x},0)`;
+      })
+      .style('left', d => this.timeScale(d.endTime) > 45 ? '-8px' : 'auto')
+      .style('right', d => this.timeScale(d.endTime) < 55 ? '-8px' : 'auto');
 
     stepHeader.append('span')
-      .attr('class', 'step-header')
+      .attr('class', 'step-title')
       .text(d => d.stepName);
 
     stepHeader.append('span')
       .attr('class', 'step-duration')
       .text(d => `${d.duration} minutes`);
-  }
-
-  renderStepBars(selection) {
-    selection.append('div')
-      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
-      .style('width', d => `${this.timeScale(d.duration)}%`)
-      .attr('height', _style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"])
-      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
   }
 
   setSteps(data) {
@@ -1663,8 +1670,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "timelineStyle", function() { return timelineStyle; });
 const margins = { t: 10, r: 100, b: 10, l: 20 };
 
-const stepHeight = 40;
-const barHeight = 18;
+const stepHeight = 38;
+const barHeight = 37;
 
 const timelineStyle = `
   <style>

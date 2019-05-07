@@ -1,7 +1,7 @@
 export const margins = { t: 10, r: 100, b: 10, l: 20 };
 
-export const stepHeight = 40;
-export const barHeight = 18;
+export const stepHeight = 38;
+export const barHeight = 37;
 
 export const timelineStyle = `
   <style>

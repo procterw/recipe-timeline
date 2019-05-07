@@ -45,7 +45,6 @@ export class RecipeTimeline {
       .join(
         enter => enter.append('li')
           .attr('class', 'step')
-          .call(this.renderStepHeaders.bind(this))
           .call(this.renderStepBars.bind(this))
           .style('top', d => `${this.stepScale(d.stepName)}px`),
         update => update.transition()
@@ -53,26 +52,34 @@ export class RecipeTimeline {
       );
   }
 
+  renderStepBars(selection) {
+    selection.append('div')
+      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
+      .style('width', d => `${this.timeScale(d.duration)}%`)
+      .style('height', `${barHeight}px`)
+      .style('margin-left', d => `${this.timeScale(d.startTime)}%`)
+      .call(this.renderStepHeaders.bind(this));
+  }
+
   renderStepHeaders(selection) {
     const stepHeader = selection.append('span')
       .attr('class', 'step-header')
-      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
+      .style('transform', d => {
+        let x;
+        if (this.timeScale(d.endTime) < 55) x = '100%';
+        if (this.timeScale(d.endTime) > 45) x = '-100%';
+        return `translate(${x},0)`;
+      })
+      .style('left', d => this.timeScale(d.endTime) > 45 ? '-8px' : 'auto')
+      .style('right', d => this.timeScale(d.endTime) < 55 ? '-8px' : 'auto');
 
     stepHeader.append('span')
-      .attr('class', 'step-header')
+      .attr('class', 'step-title')
       .text(d => d.stepName);
 
     stepHeader.append('span')
       .attr('class', 'step-duration')
       .text(d => `${d.duration} minutes`);
-  }
-
-  renderStepBars(selection) {
-    selection.append('div')
-      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
-      .style('width', d => `${this.timeScale(d.duration)}%`)
-      .attr('height', barHeight)
-      .style('margin-left', d => `${this.timeScale(d.startTime)}%`);
   }
 
   setSteps(data) {
