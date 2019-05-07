@@ -20,6 +20,21 @@ const fillOutIngredients = ingredients => {
 };
 
 /**
+ * Mocks an API which returns a list of recipes
+ * @constructor
+ * @param {Array[String]} recipeNames - A list of recipes to retrieve
+ * @param {Array<Object>} data - An array of recipes
+ * @param {String} sort - A string indicating how to sort the steps
+ * @returns {Array<Object>} - An array of recipe steps in some order
+ */
+export const getAvailableRecipes = async () => {
+  // Delay response to mock request latency
+  await setTimeout(() => {}, 300);
+
+  return Object.keys(recipes);
+};
+
+/**
  * Mocks an API which would, given a list of recipes, return the
  * list of steps, in order, required to complete the recipe.
  * @constructor

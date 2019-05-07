@@ -6,7 +6,7 @@ export const oatmeal = {
   recipeName: 'Oatmeal with nuts seeds and fruit',
   steps: [
     {
-      stepName: 'Boil water',
+      stepName: 'Boil water for oats',
       ingredients: [
         { id: 'water', measurement: '5 cups' },
       ],
@@ -20,7 +20,7 @@ export const oatmeal = {
       ingredients: [
         { id: 'oats', measurement: '1 cup' },
       ],
-      dependencies: ['Boil water'],
+      dependencies: ['Boil water for oats'],
       type: StepsEnum.COMBINE,
       duration: 1,
       instructions: 'Add oats.'
@@ -281,7 +281,7 @@ export const tempeh = {
     },
 
     {
-      stepName: 'Boil water',
+      stepName: 'Boil water for noodles',
       ingredients: [],
       dependencies: [],
       type: StepsEnum.BOIL,
@@ -310,7 +310,7 @@ export const tempeh = {
       ingredients: [
         { id: 'buckwheatSobaNoodles', measurement: '1 package' }
       ],
-      dependencies: ['Boil water'],
+      dependencies: ['Boil water for noodles'],
       type: StepsEnum.COOK_STIRRING,
       duration: 7,
       instructions: 'Add noodles to boiling water and cook for $duration minutes.'

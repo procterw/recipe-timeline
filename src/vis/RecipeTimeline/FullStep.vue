@@ -1,13 +1,13 @@
 <template>
   <div class="full-step-view">
-    <section class="ingredients">
+    <section class="ingredients" v-if="ingredients.length > 0">
       <h3>ingredients</h3>
-      <ul v-if="ingredients.length > 0">
+      <ul>
         <li
           v-for="ingredient in ingredients"
           v-bind:key="ingredient.name"
         >
-          {{ ingredient.name }}
+          {{ ingredient.measurement }} {{ ingredient.name }}
         </li>
       </ul>
     </section>

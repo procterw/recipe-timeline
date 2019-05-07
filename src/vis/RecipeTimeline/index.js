@@ -14,7 +14,7 @@ export class RecipeTimeline {
    * @param {Array<Object>} data - An array of recipe steps
    * @param {Array<Object>} events - A dict of callback events
    */
-  constructor(node, data, events={}) {
+  constructor(node, data) {
     this.selection = d3.select(node);
     this.data = data;
     this.selections = {};
@@ -105,12 +105,13 @@ export class RecipeTimeline {
   renderStepHeaders(selection) {
     const stepHeader = selection.append('span')
       .attr('class', 'step-header')
+      // Add label to either the left or right, wherever there is more room
+      .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
+      .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto')
       .style('transform', d => {
         const x = this.getBarPlacement(d) ? '-100%' : '100%';
         return `translate(${x},0)`;
-      })
-      .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
-      .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto');
+      });
 
     stepHeader.append('span')
       .attr('class', 'step-title')
