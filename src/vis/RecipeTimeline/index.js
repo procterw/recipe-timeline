@@ -54,17 +54,7 @@ export class RecipeTimeline {
   }
 
   renderSteps() {
-    // We need to recompute the layout each time a step is opened or
-    // closed. We track the height of open steps in the state, the rerender
-    // the steps.
-    const setVisibleState = (d, isOpen, height = 0) => {
-      if (isOpen) { // close
-        delete this.state.visibleSteps[d.stepName];
-      } else { // open
-        this.state.visibleSteps[d.stepName] = height;
-      }
-      this.renderSteps();
-    };
+    const self = this;
 
     this.selections.stepList
       .selectAll('li.step')
@@ -81,9 +71,13 @@ export class RecipeTimeline {
       .call(this.renderStepBars.bind(this))
       .on('click', function(d) {
         const isOpen = d3.select(this).classed('open');
-        const fullStepHeight = this.childNodes[1].getBoundingClientRect().height;
-        setVisibleState(d, isOpen, fullStepHeight);
         d3.select(this).classed('open', !isOpen);
+        // We need to recompute the layout each time a step is opened or
+        // closed. We track the height of open steps in the state, the rerender
+        // the steps.
+        const { height } = this.childNodes[1].getBoundingClientRect();
+        self.state.visibleSteps[d.stepName] = isOpen ? 0 : height;
+        self.renderSteps();
       });
   }
 
@@ -115,8 +109,8 @@ export class RecipeTimeline {
       .join(
         enter => enter.append('span')
           .attr('class', 'step-header')
-          .call(this.addTitle)
-          .call(this.addDuration)
+          .call(this.addTitleLabel)
+          .call(this.addDurationLabel)
       )
       .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
       .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto')
@@ -127,7 +121,7 @@ export class RecipeTimeline {
   }
 
   // Given a step selection, adds a span with the step title
-  addTitle(selection) {
+  addTitleLabel(selection) {
     selection.append('span')
       .attr('class', 'step-title')
       .text(d => d.stepName);
@@ -135,7 +129,7 @@ export class RecipeTimeline {
 
   // Given a step selection, adds a duration span in minutes
   // TODO make time options more flexible
-  addDuration(selection) {
+  addDurationLabel(selection) {
     selection.append('span')
       .attr('class', 'step-duration')
       .text(d => `${d.duration} minutes`);
