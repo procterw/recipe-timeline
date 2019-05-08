@@ -1,8 +1,8 @@
 <template>
-  <div class="timeline-view">
+  <div class="layout-wrapper">
     <!-- <button v-on:click="sortByStartTime">Sort by start time</button> -->
     <!-- <button v-on:click="sortByFlow">Sort by flow</button> -->
-    <section class="timeline-options">
+    <section class="layout-side-panel">
 
       <h3>Recipes</h3>
       <recipe-selection
@@ -16,8 +16,8 @@
         v-bind:handleSortChange="handleSortChange"
       />
     </section>
-    <section class="timeline-wrapper">
-
+    <section class="timeline-wrapper layout-content-with-side-panel">
+      <h3>Recipe timeline</h3>
     </section>
   </div>
 </template>
@@ -69,13 +69,8 @@ export default {
 </script>
 
 <style>
-  .timeline-view {
-    display: flex;
-  }
-
-  .timeline-wrapper {
-    flex-grow: 1;
-    padding: 10px 40px;
-    box-sizing: border-box;
-  }
+form ul {
+  list-style: none;
+  padding: 0;
+}
 </style>

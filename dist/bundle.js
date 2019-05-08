@@ -86,6 +86,42 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./css/index.css":
+/*!***********************!*\
+  !*** ./css/index.css ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./index.css */ "./node_modules/css-loader/dist/cjs.js!./css/index.css");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("3fb8c9a2", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./css/index.css":
+/*!*************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./css/index.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-size: 14px;\n}\n\nnav {\n  text-align: center;\n  margin: 30px 0;\n}\n\nnav a {\n  padding: 6px;\n  text-decoration: none;\n  color: black;\n}\n\nnav a.router-link-active {\n  border-bottom: 5px solid blue;\n}\n\n.layout-wrapper {\n  display: flex;\n  max-width: 1100px;\n  margin: 20px auto;\n}\n\n.layout-side-panel {\n  width: 250px;\n}\n\n.layout-content-with-side-panel {\n  flex-grow: 1;\n}\n\n.layout-content-full-width {\n  width: 100%;\n}\n", ""]);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/views/Timeline/index.vue?vue&type=style&index=0&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options!./src/views/Timeline/index.vue?vue&type=style&index=0&lang=css& ***!
@@ -95,7 +131,7 @@
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "\n.timeline-view {\n  display: flex;\n}\n.timeline-wrapper {\n  flex-grow: 1;\n  padding: 10px 40px;\n  box-sizing: border-box;\n}\n", ""]);
+exports.push([module.i, "\nform ul {\n  list-style: none;\n  padding: 0;\n}\n", ""]);
 
 
 
@@ -125,7 +161,7 @@ exports.push([module.i, "\n.full-step-view {\n  font-family: 'Libre Baskerville'
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step:hover .step-bar {\n  opacity: 0.6;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step:hover .step-bar {\n  opacity: 0.6;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n  top: -1px;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n", ""]);
 
 
 
@@ -558,10 +594,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "timeline-view" }, [
+  return _c("div", { staticClass: "layout-wrapper" }, [
     _c(
       "section",
-      { staticClass: "timeline-options" },
+      { staticClass: "layout-side-panel" },
       [
         _c("h3", [_vm._v("Recipes")]),
         _vm._v(" "),
@@ -581,10 +617,21 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("section", { staticClass: "timeline-wrapper" })
+    _vm._m(0)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      { staticClass: "timeline-wrapper layout-content-with-side-panel" },
+      [_c("h3", [_vm._v("Recipe timeline")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -1836,6 +1883,9 @@ const flattenTree = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_Timeline_index_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./views/Timeline/index.vue */ "./src/views/Timeline/index.vue");
+/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/index.css */ "./css/index.css");
+/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_index_css__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 const routes = [
@@ -2167,24 +2217,27 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/vis/RecipeTimeline/index.js ***!
   \*****************************************/
-/*! exports provided: RecipeTimeline */
+/*! exports provided: BAR_HEIGHT, STEP_HEIGHT, RecipeTimeline */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BAR_HEIGHT", function() { return BAR_HEIGHT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STEP_HEIGHT", function() { return STEP_HEIGHT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeTimeline", function() { return RecipeTimeline; });
-/* harmony import */ var _style_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.js */ "./src/vis/RecipeTimeline/style.js");
-/* harmony import */ var _FullStep_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FullStep.vue */ "./src/vis/RecipeTimeline/FullStep.vue");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.css */ "./src/vis/RecipeTimeline/style.css");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _FullStep_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FullStep.vue */ "./src/vis/RecipeTimeline/FullStep.vue");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ "./src/vis/RecipeTimeline/style.css");
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_1__);
 /* eslint-disable no-undef */
-
 
 // import { loadPatterns } from './loadPatterns';
 
 
-class RecipeTimeline {
+const BAR_MARGIN_BOTTOM = 2;
+const BAR_HEIGHT = 35;
+const STEP_HEIGHT = BAR_HEIGHT + BAR_MARGIN_BOTTOM;
 
+class RecipeTimeline {
   /**
    * Initializes a timeline visualization, showing what steps
    * of 1 or more recipes need to be completed at what time and order
@@ -2218,7 +2271,7 @@ class RecipeTimeline {
   setStepScale() {
     this.stepScale = d3.scaleBand()
       .domain(this.data.map(d => d.stepName))
-      .range([0, this.data.length * _style_js__WEBPACK_IMPORTED_MODULE_0__["stepHeight"]]); // TODO use id or key
+      .range([0, this.data.length * STEP_HEIGHT]); // TODO use id or key
   }
 
   // Gets the "top" property for each step. Because we have to use absolute
@@ -2267,7 +2320,7 @@ class RecipeTimeline {
       .join(
         enter => enter.append('div')
           .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
-          .style('height', `${_style_js__WEBPACK_IMPORTED_MODULE_0__["barHeight"]}px`)
+          .style('height', `${BAR_HEIGHT}px`)
       )
       .style('width', d => `${this.timeScale(d.duration)}%`)
       .style('margin-left', d => `${this.timeScale(d.startTime)}%`)
@@ -2318,7 +2371,7 @@ class RecipeTimeline {
     selection.each(function(d) {
       new Vue({
         el: d3.select(this).append('div').node(),
-        render: h => h(_FullStep_vue__WEBPACK_IMPORTED_MODULE_1__["default"], { props: { ...d } }),
+        render: h => h(_FullStep_vue__WEBPACK_IMPORTED_MODULE_0__["default"], { props: { ...d } }),
       });
     }); 
   }
@@ -2352,27 +2405,6 @@ var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/add
 var update = add("0f2938cc", content, false, {});
 // Hot Module Replacement
 if(false) {}
-
-/***/ }),
-
-/***/ "./src/vis/RecipeTimeline/style.js":
-/*!*****************************************!*\
-  !*** ./src/vis/RecipeTimeline/style.js ***!
-  \*****************************************/
-/*! exports provided: margins, barHeight, stepHeight */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "margins", function() { return margins; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "barHeight", function() { return barHeight; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stepHeight", function() { return stepHeight; });
-const margins = { t: 10, r: 100, b: 10, l: 20 };
-
-const barHeight = 37;
-
-const stepMarginBottom = 2;
-const stepHeight = barHeight + stepMarginBottom;
 
 /***/ })
 

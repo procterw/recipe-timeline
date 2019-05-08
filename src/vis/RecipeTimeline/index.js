@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
-import { barHeight, stepHeight } from './style.js';
 import FullStep from './FullStep.vue';
 // import { loadPatterns } from './loadPatterns';
 import './style.css';
 
-export class RecipeTimeline {
+const BAR_MARGIN_BOTTOM = 2;
+export const BAR_HEIGHT = 35;
+export const STEP_HEIGHT = BAR_HEIGHT + BAR_MARGIN_BOTTOM;
 
+export class RecipeTimeline {
   /**
    * Initializes a timeline visualization, showing what steps
    * of 1 or more recipes need to be completed at what time and order
@@ -39,7 +41,7 @@ export class RecipeTimeline {
   setStepScale() {
     this.stepScale = d3.scaleBand()
       .domain(this.data.map(d => d.stepName))
-      .range([0, this.data.length * stepHeight]); // TODO use id or key
+      .range([0, this.data.length * STEP_HEIGHT]); // TODO use id or key
   }
 
   // Gets the "top" property for each step. Because we have to use absolute
@@ -88,7 +90,7 @@ export class RecipeTimeline {
       .join(
         enter => enter.append('div')
           .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
-          .style('height', `${barHeight}px`)
+          .style('height', `${BAR_HEIGHT}px`)
       )
       .style('width', d => `${this.timeScale(d.duration)}%`)
       .style('margin-left', d => `${this.timeScale(d.startTime)}%`)

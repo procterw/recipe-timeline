@@ -11,13 +11,15 @@
     <body>
 
       <div id="app">
-        <nav id="side-nav">
+        <nav id="top-nav">
           <router-link to="/">About</router-link>
           <router-link to="/bar">Recipe Battle-plan</router-link>
           <router-link to="/bar">Recipe Flow</router-link>
           <router-link to="/bar">Recipe Timer</router-link>
         </nav>
-        <router-view></router-view>
+        <div class="layout">
+          <router-view></router-view>
+        </div>
       </div>
       
       <script src="https://unpkg.com/vue/dist/vue.js"></script>

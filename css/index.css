@@ -1,9 +1,39 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
 }
 
-#content {
+nav {
+  text-align: center;
+  margin: 30px 0;
+}
+
+nav a {
+  padding: 6px;
+  text-decoration: none;
+  color: black;
+}
+
+nav a.router-link-active {
+  border-bottom: 8px solid #82ccdd;
+}
+
+.layout-wrapper {
+  display: flex;
+  max-width: 1100px;
   margin: 20px auto;
-  max-width: 800px;
+}
+
+.layout-side-panel {
+  width: 250px;
+}
+
+.layout-content-with-side-panel {
+  flex-grow: 1;
+}
+
+.layout-content-full-width {
+  width: 100%;
 }

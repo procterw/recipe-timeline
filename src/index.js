@@ -1,4 +1,5 @@
 import Timeline from './views/Timeline/index.vue';
+import '../css/index.css';
 
 const routes = [
   { path: '/', component: Timeline },
