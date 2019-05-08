@@ -35,12 +35,12 @@
   transition: margin-left 0.3s ease-out, width 0.3s ease-out;
 }
 
-.step:hover .step-bar {
-  opacity: 0.6;
-}
-
 .step-bar.passive {
   background: white;
+}
+
+.step:hover .step-bar.passive {
+  background: wheat;
 }
 
 /* light shading */
@@ -54,6 +54,16 @@
   );
 }
 
+.step:hover .step-bar.semi-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    wheat,
+    wheat 3px,
+    black 3px,
+    black 4px
+  )
+}
+
 /* dark shading */
 .step-bar.active {
   background: repeating-linear-gradient(
@@ -62,6 +72,16 @@
     black 3px,
     white 3px,
     white 4px
+  );
+}
+
+.step:hover .step-bar.active {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 3px,
+    wheat 3px,
+    wheat 4px
   );
 }
 

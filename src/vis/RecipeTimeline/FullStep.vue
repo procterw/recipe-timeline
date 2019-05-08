@@ -32,9 +32,9 @@ export default {
   .full-step-view {
     font-family: 'Libre Baskerville', serif;
     background: #fff8ea;
-    border-bottom: 1px solid wheat;
-    border-top: 1px solid wheat;
+    border: 1px solid wheat;
     margin-top: 1px;
+    padding: 1px 6px;
   }
 
   .full-step-view section {
@@ -49,6 +49,8 @@ export default {
     text-transform: capitalize;
     font-weight: normal;
     font-style: italic;
+    padding: 0;
+    border-bottom: none;
   }
 
   .full-step-view ul {
