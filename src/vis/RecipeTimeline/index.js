@@ -72,12 +72,13 @@ export class RecipeTimeline {
       .join(
         enter => enter.append('li')
           .attr('class', 'step')
+          .style('top', (d, i) => this.getStepTopOffset(d,i))
           .call(this.renderStepBars.bind(this))
-          .call(this.renderFullStep.bind(this))
-          .style('top', (d, i) => this.getStepTopOffset(d,i)),
+          .call(this.renderFullStep.bind(this)),
         update => update.transition()
-          .style('top', (d, i) => this.getStepTopOffset(d,i)),
+          .style('top', (d, i) => this.getStepTopOffset(d,i))
       )
+      .call(this.renderStepBars.bind(this))
       .on('click', function(d) {
         const isOpen = d3.select(this).classed('open');
         const fullStepHeight = this.childNodes[1].getBoundingClientRect().height;
@@ -87,10 +88,15 @@ export class RecipeTimeline {
   }
 
   renderStepBars(selection) {
-    selection.append('div')
-      .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
+    selection
+      .selectAll('div.step-bar')
+      .data(d => [d]) // WHY
+      .join(
+        enter => enter.append('div')
+          .attr('class', d => `step-bar ${this.fillScale(d.type.involvement)}`)
+          .style('height', `${barHeight}px`)
+      )
       .style('width', d => `${this.timeScale(d.duration)}%`)
-      .style('height', `${barHeight}px`)
       .style('margin-left', d => `${this.timeScale(d.startTime)}%`)
       .call(this.renderStepHeaders.bind(this));
   }
@@ -103,21 +109,34 @@ export class RecipeTimeline {
   }
 
   renderStepHeaders(selection) {
-    const stepHeader = selection.append('span')
-      .attr('class', 'step-header')
-      // Add label to either the left or right, wherever there is more room
+    selection
+      .selectAll('span.step-header')
+      .data(d => [d])
+      .join(
+        enter => enter.append('span')
+          .attr('class', 'step-header')
+          .call(this.addTitle)
+          .call(this.addDuration)
+      )
       .style('right', d => this.getBarPlacement(d) ? 'auto' : '-8px')
       .style('left', d => this.getBarPlacement(d) ? '-8px' : 'auto')
       .style('transform', d => {
         const x = this.getBarPlacement(d) ? '-100%' : '100%';
         return `translate(${x},0)`;
       });
+  }
 
-    stepHeader.append('span')
+  // Given a step selection, adds a span with the step title
+  addTitle(selection) {
+    selection.append('span')
       .attr('class', 'step-title')
       .text(d => d.stepName);
+  }
 
-    stepHeader.append('span')
+  // Given a step selection, adds a duration span in minutes
+  // TODO make time options more flexible
+  addDuration(selection) {
+    selection.append('span')
       .attr('class', 'step-duration')
       .text(d => `${d.duration} minutes`);
   }

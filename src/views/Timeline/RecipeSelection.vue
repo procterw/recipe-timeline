@@ -32,6 +32,7 @@ export default {
   },
   mounted: async function () {
     this.availableRecipes = await getAvailableRecipes();
+    this.handleRecipeToggle(this.availableRecipes[0]);
   }
 };
 </script>

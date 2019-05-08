@@ -24,6 +24,49 @@
 
 /* ------------ */
 /* ------------ */
+/* step bar, a shaded rectangle visualizing the length */
+
+.step-bar {
+  border: 2px solid black;
+  border-radius: 2px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  transition: margin-left 0.3s ease-out, width 0.3s ease-out;
+}
+
+.step:hover .step-bar {
+  opacity: 0.6;
+}
+
+.step-bar.passive {
+  background: white;
+}
+
+/* light shading */
+.step-bar.semi-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    white,
+    white 3px,
+    black 3px,
+    black 4px
+  );
+}
+
+/* dark shading */
+.step-bar.active {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 3px,
+    white 3px,
+    white 4px
+  );
+}
+
+/* ------------ */
+/* ------------ */
 /* full step content, the ingredients and direction */
 
 .step .full-step-view {
@@ -59,46 +102,4 @@
   font-size: 11px;
   font-style: italic;
   color: #888;
-}
-
-/* ------------ */
-/* ------------ */
-/* step bar, a shaded rectangle visualizing the length */
-
-.step-bar {
-  border: 2px solid black;
-  border-radius: 2px;
-  box-sizing: border-box;
-  position: relative;
-  cursor: pointer;
-}
-
-.step:hover .step-bar {
-  opacity: 0.6;
-}
-
-.step-bar.passive {
-  background: white;
-}
-
-/* light shading */
-.step-bar.semi-active {
-  background: repeating-linear-gradient(
-    -45deg,
-    white,
-    white 3px,
-    black 3px,
-    black 4px
-  );
-}
-
-/* dark shading */
-.step-bar.active {
-  background: repeating-linear-gradient(
-    -45deg,
-    black,
-    black 3px,
-    white 3px,
-    white 4px
-  );
 }

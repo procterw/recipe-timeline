@@ -2,10 +2,23 @@
   <div class="timeline-view">
     <!-- <button v-on:click="sortByStartTime">Sort by start time</button> -->
     <!-- <button v-on:click="sortByFlow">Sort by flow</button> -->
-    <recipe-selection
-      v-bind:selectedRecipes="selectedRecipes"
-      v-bind:handleRecipeToggle="handleRecipeToggle"
-    />
+    <section class="timeline-options">
+
+      <h3>Recipes</h3>
+      <recipe-selection
+        v-bind:selectedRecipes="selectedRecipes"
+        v-bind:handleRecipeToggle="handleRecipeToggle"
+      />
+
+      <h3>Step sorting</h3>
+      <sort-options
+        v-bind:sort="sort"
+        v-bind:handleSortChange="handleSortChange"
+      />
+    </section>
+    <section class="timeline-wrapper">
+
+    </section>
   </div>
 </template>
 
@@ -13,10 +26,12 @@
 import { RecipeTimeline } from '../../vis/RecipeTimeline';
 import { getRecipesTimeline } from '../../api/mockApi.js';
 import RecipeSelection from './RecipeSelection.vue';
+import SortOptions from './SortOptions.vue';
 
 export default {
   components: {
-    'recipe-selection': RecipeSelection
+    'recipe-selection': RecipeSelection,
+    'sort-options': SortOptions
   },
   data () {
     return {
@@ -26,17 +41,12 @@ export default {
     }
   },
   mounted: function () {
-    this.recipeTimeline = new RecipeTimeline(this.$el, []);
+    this.recipeTimeline = new RecipeTimeline(
+      this.$el.querySelector('.timeline-wrapper'),
+      [] // no initial data
+    );
   },
   methods: {
-    // sortByStartTime: async function() {
-    //   const data = await getRecipesTimeline(this.recipes, 'time');
-    //   this.recipeTimeline.setSteps(data);
-    // },
-    // sortByFlow: async function() {
-    //   const data = await getRecipesTimeline(this.recipes, 'flow');
-    //   this.recipeTimeline.setSteps(data);
-    // },
     handleRecipeToggle: async function(recipe) {
       const index = this.selectedRecipes.indexOf(recipe);
       if (index < 0) {
@@ -47,11 +57,25 @@ export default {
 
       const data = await getRecipesTimeline(this.selectedRecipes, this.sort);
       this.recipeTimeline.setSteps(data);
+    },
+    handleSortChange: async function(sort) {
+      this.sort = sort;
+
+      const data = await getRecipesTimeline(this.selectedRecipes, this.sort);
+      this.recipeTimeline.setSteps(data);
     }
   }
 }
 </script>
 
 <style>
+  .timeline-view {
+    display: flex;
+  }
 
+  .timeline-wrapper {
+    flex-grow: 1;
+    padding: 10px 40px;
+    box-sizing: border-box;
+  }
 </style>
