@@ -6,7 +6,7 @@
 
       <h3>Recipe timeline</h3>
       <p>
-        The recipe timeline combines the step from multiple recipes and lays them out as 
+        The recipe timeline combines the steps from multiple recipes and lays them out as 
         a timeline. Each step is labeled as <em>passive</em> (baking, simmering), <em>active</em>
         (prep, kneading), or <em>semi-active</em> (sautéing, frying). Click on a step to see the 
         ingredients and full instructions.
