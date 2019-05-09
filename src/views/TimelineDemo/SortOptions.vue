@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       sortOptions: [
-        'flow', 'time'
+        'branchDepth', 'startTime'
         // {
         //   id: 'flow',
         //   name: 'Branch depth' ,

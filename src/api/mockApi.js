@@ -1,7 +1,7 @@
 import * as recipes from'./data/recipes.js';
 import { ingredientDb } from './data/ingredientDb.js';
 import { getStepTimeRange } from './getStepTimeRange.js';
-import { sortByFlow } from './sortByFlow.js';
+import { sortByBranchDepth } from './sortByBranchDepth.js';
 
 /**
  * Mocks an API call which fills out the ingredient list in recipe
@@ -87,13 +87,13 @@ export const getRecipesTimeline = async (recipeNames, sort='time') => {
   // Delay response to mock request latency
   await setTimeout(() => {}, 300);
 
-  if (sort === 'time') {
+  if (sort === 'startTime') {
     return steps.sort((a,b) => {
       return a.startTime - b.startTime;
     });
   }
 
-  if (sort === 'flow') {
-    return sortByFlow(steps);
+  if (sort === 'branchDepth') {
+    return sortByBranchDepth(steps);
   }
 };

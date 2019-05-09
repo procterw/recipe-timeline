@@ -398,7 +398,7 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       sortOptions: [
-        'flow', 'time'
+        'branchDepth', 'startTime'
         // {
         //   id: 'flow',
         //   name: 'Branch depth' ,
@@ -477,7 +477,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       recipeTimeline: null,
       selectedRecipes: [],
-      sort: 'flow', // flow, time
+      sort: 'branchDepth',
     }
   },
   mounted: function () {
@@ -1800,7 +1800,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _data_recipes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data/recipes.js */ "./src/api/data/recipes.js");
 /* harmony import */ var _data_ingredientDb_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data/ingredientDb.js */ "./src/api/data/ingredientDb.js");
 /* harmony import */ var _getStepTimeRange_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getStepTimeRange.js */ "./src/api/getStepTimeRange.js");
-/* harmony import */ var _sortByFlow_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sortByFlow.js */ "./src/api/sortByFlow.js");
+/* harmony import */ var _sortByBranchDepth_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sortByBranchDepth.js */ "./src/api/sortByBranchDepth.js");
 
 
 
@@ -1890,41 +1890,41 @@ const getRecipesTimeline = async (recipeNames, sort='time') => {
   // Delay response to mock request latency
   await setTimeout(() => {}, 300);
 
-  if (sort === 'time') {
+  if (sort === 'startTime') {
     return steps.sort((a,b) => {
       return a.startTime - b.startTime;
     });
   }
 
-  if (sort === 'flow') {
-    return Object(_sortByFlow_js__WEBPACK_IMPORTED_MODULE_3__["sortByFlow"])(steps);
+  if (sort === 'branchDepth') {
+    return Object(_sortByBranchDepth_js__WEBPACK_IMPORTED_MODULE_3__["sortByBranchDepth"])(steps);
   }
 };
 
 
 /***/ }),
 
-/***/ "./src/api/sortByFlow.js":
-/*!*******************************!*\
-  !*** ./src/api/sortByFlow.js ***!
-  \*******************************/
-/*! exports provided: sortByFlow */
+/***/ "./src/api/sortByBranchDepth.js":
+/*!**************************************!*\
+  !*** ./src/api/sortByBranchDepth.js ***!
+  \**************************************/
+/*! exports provided: sortByBranchDepth */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByFlow", function() { return sortByFlow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByBranchDepth", function() { return sortByBranchDepth; });
 /* harmony import */ var _trees__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./trees */ "./src/api/trees.js");
 
 
 /**
- * Sorts a list of recipe steps according to "flow" by searching
+ * Sorts a list of recipe steps according to "branch depth" by searching
  * the leftmost branch of each node and adding lead nodes to an array.
  * 
  * @param {Array<Object>} steps - An unsorted list of recipe steps
  * @returns {Array<Object>} - A sorted list of recipe steps
  */
-const sortByFlow = (steps) => {
+const sortByBranchDepth = (steps) => {
   const stepTrees = Object(_trees__WEBPACK_IMPORTED_MODULE_0__["recipeStepsToTree"])(steps);
   
   return stepTrees.reduce((sortedSteps, tree) => {

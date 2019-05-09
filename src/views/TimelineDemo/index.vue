@@ -45,7 +45,7 @@ export default {
     return {
       recipeTimeline: null,
       selectedRecipes: [],
-      sort: 'flow', // flow, time
+      sort: 'branchDepth',
     }
   },
   mounted: function () {

@@ -1,13 +1,13 @@
 import { recipeStepsToTree } from './trees';
 
 /**
- * Sorts a list of recipe steps according to "flow" by searching
+ * Sorts a list of recipe steps according to "branch depth" by searching
  * the leftmost branch of each node and adding lead nodes to an array.
  * 
  * @param {Array<Object>} steps - An unsorted list of recipe steps
  * @returns {Array<Object>} - A sorted list of recipe steps
  */
-export const sortByFlow = (steps) => {
+export const sortByBranchDepth = (steps) => {
   const stepTrees = recipeStepsToTree(steps);
   
   return stepTrees.reduce((sortedSteps, tree) => {
