@@ -60,3 +60,19 @@ h3 {
   padding: 0 0 10px;
   border-bottom: 1px solid #DDD;
 }
+
+/* For mobile phones: */
+@media only screen and (max-width: 768px) {
+  .layout-side-panel {
+    width: 100%;
+  }
+
+  .layout-wrapper {
+    display: block;
+  }
+  
+  .layout-content-with-side-panel {
+    width: 100%;
+    padding: 0;
+  }
+}
