@@ -176,7 +176,7 @@ exports.push([module.i, "\n.full-step-view {\n  font-family: 'Libre Baskerville'
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step:hover .step-bar.passive {\n  background: wheat;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step:hover .step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    wheat,\n    wheat 3px,\n    black 3px,\n    black 4px\n  )\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n.step:hover .step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    wheat 3px,\n    wheat 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n  top: -1px;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step:hover .step-bar.passive {\n  background: wheat;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step:hover .step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    wheat,\n    wheat 3px,\n    black 3px,\n    black 4px\n  )\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n.step:hover .step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    wheat 3px,\n    wheat 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n  top: -1px;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\nul.timeline-legend {\n  list-style: none;\n  margin: 0 0 15px;\n  padding: 0 0 5px;\n  border-bottom: 1px solid #ddd;\n}\n\nul.timeline-legend li {\n  display: inline-block;\n  margin-right: 8px;\n}\n\nul.timeline-legend .step-bar {\n  vertical-align: middle;\n  display: inline-block;\n}\n\nul.timeline-legend .label {\n  vertical-align: middle;\n  font-family: 'Libre Baskerville', serif;\n  font-style: italic;\n  margin-left: 5px;\n}\n", ""]);
 
 
 
@@ -397,7 +397,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      sortOptions: ['flow', 'time'],
+      sortOptions: [
+        'flow', 'time'
+        // {
+        //   id: 'flow',
+        //   name: 'Branch depth' ,
+        //   description: ''
+        // },
+        // {
+        //   id: 'time',
+        //   name: 'Time',
+        //   description: 'sort all steps from all recipes by start time'
+        // }
+      ],
     };
   }
 });
@@ -2013,9 +2025,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-  { path: '/', component: _views_RecipeTrees_index_vue__WEBPACK_IMPORTED_MODULE_1__["default"] },
-  // { path: '/timeline-demo', component: TimelineDemo },
-  { path: '/timeline-demo', component: _views_TimelineDemo_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"] },
+  { path: '/', component: _views_TimelineDemo_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"] },
+  { path: '/about', component: _views_RecipeTrees_index_vue__WEBPACK_IMPORTED_MODULE_1__["default"] },
 ];
 
 const router = new VueRouter({ routes });
@@ -2467,12 +2478,14 @@ class RecipeTimeline {
       visibleSteps: {}
     };
 
-    this.selections.stepList = this.selection.append('ul')
-      .attr('class', 'step-list');
-
     this.fillScale = d3.scaleOrdinal()
       .domain([0, 0.5, 1])
       .range(['passive', 'semi-active', 'active']);
+
+    this.renderLegend();
+
+    this.selections.stepList = this.selection.append('ul')
+      .attr('class', 'step-list');
   }
 
   setTimeScale() {
@@ -2587,6 +2600,29 @@ class RecipeTimeline {
         render: h => h(_FullStep_vue__WEBPACK_IMPORTED_MODULE_0__["default"], { props: { ...d } }),
       });
     }); 
+  }
+
+  renderLegend() {
+    const labels = {
+      '0': 'Passive',
+      '0.5': 'Semi-active',
+      '1': 'Active'
+    };
+
+    const legend = this.selection.append('ul')
+      .attr('class', 'timeline-legend')
+      .selectAll('li')
+      .data(this.fillScale.domain())
+      .join('li');
+
+    legend.append('div')
+      .attr('class', d => `step-bar ${this.fillScale(d)}`)
+      .style('height', '27px') // TODO why
+      .style('width', '40px');
+
+    legend.append('span')
+      .attr('class', 'label')
+      .text(d => labels[d]);
   }
 
   setSteps(data) {

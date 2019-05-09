@@ -24,12 +24,14 @@ export class RecipeTimeline {
       visibleSteps: {}
     };
 
-    this.selections.stepList = this.selection.append('ul')
-      .attr('class', 'step-list');
-
     this.fillScale = d3.scaleOrdinal()
       .domain([0, 0.5, 1])
       .range(['passive', 'semi-active', 'active']);
+
+    this.renderLegend();
+
+    this.selections.stepList = this.selection.append('ul')
+      .attr('class', 'step-list');
   }
 
   setTimeScale() {
@@ -144,6 +146,29 @@ export class RecipeTimeline {
         render: h => h(FullStep, { props: { ...d } }),
       });
     }); 
+  }
+
+  renderLegend() {
+    const labels = {
+      '0': 'Passive',
+      '0.5': 'Semi-active',
+      '1': 'Active'
+    };
+
+    const legend = this.selection.append('ul')
+      .attr('class', 'timeline-legend')
+      .selectAll('li')
+      .data(this.fillScale.domain())
+      .join('li');
+
+    legend.append('div')
+      .attr('class', d => `step-bar ${this.fillScale(d)}`)
+      .style('height', '27px') // TODO why
+      .style('width', '40px');
+
+    legend.append('span')
+      .attr('class', 'label')
+      .text(d => labels[d]);
   }
 
   setSteps(data) {

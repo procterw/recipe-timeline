@@ -3,9 +3,8 @@ import RecipeTrees from './views/RecipeTrees/index.vue';
 import '../css/index.css';
 
 const routes = [
-  { path: '/', component: RecipeTrees },
-  // { path: '/timeline-demo', component: TimelineDemo },
-  { path: '/timeline-demo', component: TimelineDemo },
+  { path: '/', component: TimelineDemo },
+  { path: '/about', component: RecipeTrees },
 ];
 
 const router = new VueRouter({ routes });

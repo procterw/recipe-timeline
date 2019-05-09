@@ -124,3 +124,31 @@
   font-style: italic;
   color: #888;
 }
+
+/* ------------ */
+/* ------------ */
+/* step header, labeling the title and duration */
+
+ul.timeline-legend {
+  list-style: none;
+  margin: 0 0 15px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.timeline-legend li {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+ul.timeline-legend .step-bar {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+ul.timeline-legend .label {
+  vertical-align: middle;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  margin-left: 5px;
+}

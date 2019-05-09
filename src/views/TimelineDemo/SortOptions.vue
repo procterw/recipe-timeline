@@ -27,7 +27,19 @@ export default {
   },
   data () {
     return {
-      sortOptions: ['flow', 'time'],
+      sortOptions: [
+        'flow', 'time'
+        // {
+        //   id: 'flow',
+        //   name: 'Branch depth' ,
+        //   description: ''
+        // },
+        // {
+        //   id: 'time',
+        //   name: 'Time',
+        //   description: 'sort all steps from all recipes by start time'
+        // }
+      ],
     };
   }
 };
