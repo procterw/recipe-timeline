@@ -116,7 +116,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-size: 14px;\n}\n\nnav {\n  text-align: center;\n  margin: 30px 0 50px;\n}\n\nnav a {\n  padding: 6px;\n  text-decoration: none;\n  color: black;\n}\n\nnav a.router-link-exact-active {\n  border-bottom: 7px solid #82ccdd;\n}\n\n.layout {\n\n}\n\n.layout-wrapper {\n  display: flex;\n  max-width: 1100px;\n  margin: 20px auto;\n  padding: 0 50px;\n}\n\n.layout-side-panel {\n  width: 300px;\n}\n\n.layout-content-with-side-panel {\n  flex-grow: 1;\n  padding: 0 40px;\n}\n\n.layout-content-full-width {\n  width: 100%;\n}\n\nh1 {\n  font-weight: 100;\n  font-size: 24px;\n  margin-top: 0;\n  margin-bottom: 15px;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #ddd;\n}\n\nh3 {\n  font-weight: 100;\n  font-size: 19px;\n  margin: 0 0 10px;\n  padding: 0 0 10px;\n  border-bottom: 1px solid #DDD;\n}\n\n/* For mobile phones: */\n@media only screen and (max-width: 768px) {\n  .layout-wrapper {\n    display: block;\n    padding: 0 20px;\n  }\n  \n  .layout-content-with-side-panel {\n    width: 100%;\n    padding: 0;\n  }\n\n  .layout-side-panel {\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-size: 14px;\n}\n\nnav {\n  text-align: center;\n  margin: 30px 0 50px;\n}\n\nnav a {\n  padding: 6px;\n  text-decoration: none;\n  color: black;\n}\n\nnav a.router-link-exact-active {\n  border-bottom: 7px solid #82ccdd;\n}\n\n.layout {\n\n}\n\n.layout-wrapper {\n  display: flex;\n  max-width: 1100px;\n  margin: 20px auto;\n  padding: 0 50px;\n}\n\n.layout-side-panel {\n  width: 300px;\n}\n\n.layout-content-with-side-panel {\n  flex-grow: 1;\n  padding: 0 40px;\n}\n\n.layout-content-full-width {\n  width: 100%;\n}\n\np {\n  max-width: 400px;\n}\n\nh1 {\n  font-weight: 100;\n  font-size: 24px;\n  margin-top: 0;\n  margin-bottom: 15px;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #ddd;\n}\n\nh3 {\n  font-weight: 100;\n  font-size: 19px;\n  margin: 0 0 10px;\n  padding: 0 0 10px;\n  border-bottom: 1px solid #DDD;\n}\n\nh4 {\n  font-style: italic;\n  font-size: 16px;\n  font-weight: normal;\n}\n\n/* For mobile phones: */\n@media only screen and (max-width: 768px) {\n  .layout-wrapper {\n    display: block;\n    padding: 0 20px;\n  }\n  \n  .layout-content-with-side-panel {\n    width: 100%;\n    padding: 0;\n  }\n\n  .layout-side-panel {\n    width: 100%;\n  }\n}\n", ""]);
 
 
 
@@ -131,7 +131,7 @@ exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Hel
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* form ul {\n  list-style: none;\n  padding: 0;\n}\n\np {\n  margin-top: 0;\n} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* form ul {\n  list-style: none;\n  padding: 0;\n}\n\np {\n  margin-top: 0;\n} */\n", ""]);
 
 
 
@@ -287,6 +287,52 @@ function toComment(sourceMap) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -575,7 +621,51 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "layout-wrapper" }, [
       _c("section", { staticClass: "layout-content-full-width" }, [
-        _c("h1", [_vm._v("Recipe Trees / Graphs")])
+        _c("h1", [_vm._v("Recipe Trees / Graphs")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      Written recipes haven’t changed much in the last few centuries, and why would they?\n      A complete list of ingredients and instructions is all you really need to prepare\n      a dish. However, as someone who cooks a lot and often cooks multiple dishes for \n      multiple people, there are a few places I struggle where written recipes offer no help.\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Context")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      For complex recipes, it can be difficult to get a real sense of how long things will take\n      and why. Most people find the overall time estimates wildly inaccurate.\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Cooking more than one recipe at a time")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      Most meals involve preparing several recipes at the same time. You might be cooking rice\n      while stir-frying vegetables and tofu. In that situation, when do you start the rice?\n      Should you do the prep ahead of time or can you do it while the rice cooks? Knowing how\n      to juggle the steps of multiple recipes can be a huge time saver.\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Multitasking")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      Recipes aren’t great at taking multi-tasking into account. You can be cooking several\n      dishes at the same, or do prep while a pan heats up, but you can’t chop onions and stem\n      kale at the same times, and recipes aren’t always clear on how much multitasking there\n      will be or how much prior skill is required to do so successfully.\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Which ingredients when?")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      It’s fairly common for me to frantically refer back to a written recipe while cooking,\n      skim the instructions for which spices I need to add now, then find the measurements\n      in the ingredient list. It would be useful to have both the full list of ingredients\n      and measurements before you start, then see the ingredients and measurements required\n      at each step.\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\n      I propose that presenting a list of recipes as an interactive timeline helps alleviate these issues.\n    "
+          )
+        ])
       ])
     ])
   }
