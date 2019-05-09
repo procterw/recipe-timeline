@@ -11,7 +11,11 @@ export const sortByBranchDepth = (steps) => {
   const stepTrees = recipeStepsToTree(steps);
   
   return stepTrees.reduce((sortedSteps, tree) => {
-    return [...sortedSteps, ...getNestedSteps(tree)];
+    const nestedSteps = getNestedSteps(tree).map(step => {
+      delete step.children;
+      return step;
+    });
+    return [...sortedSteps, ...nestedSteps];
   }, []);
 };
 

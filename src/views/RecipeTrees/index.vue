@@ -1,7 +1,5 @@
 <template>
   <div class="layout-wrapper">
-    <!-- <button v-on:click="sortByStartTime">Sort by start time</button> -->
-    <!-- <button v-on:click="sortByFlow">Sort by flow</button> -->
     <section class="layout-content-full-width">
       <h1>Recipe Trees / Graphs</h1>
 
@@ -56,19 +54,9 @@
 
 <script>
 export default {
-  components: {
-
-  }
+  components: {}
 }
 </script>
 
 <style>
-/* form ul {
-  list-style: none;
-  padding: 0;
-}
-
-p {
-  margin-top: 0;
-} */
 </style>

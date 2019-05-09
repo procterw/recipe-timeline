@@ -4,8 +4,6 @@ const { sortByBranchDepth } = require('./sortByBranchDepth');
 const {
   basicRecipe,
   expectedBasicRecipeSorted,
-  twoRecipes,
-  expectedTwoRecipesSorted,
 } = require('./sortByBranchDepth.mock');
 
 describe('sortByBranchDepth', () => {
@@ -18,13 +16,14 @@ describe('sortByBranchDepth', () => {
 
   describe('basic recipe', () => {
     test('sorts by branch depth, then time', () => {
-
+      const actual = sortByBranchDepth(basicRecipe);
+      expect(actual).toStrictEqual(expectedBasicRecipeSorted);
     });
   });
 
   describe('when there are two recipes', () => {
     test('recipes are separated', () => {
-      
+      // TODO
     });
   });
 });

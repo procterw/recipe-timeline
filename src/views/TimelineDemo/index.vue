@@ -1,7 +1,5 @@
 <template>
   <div class="layout-wrapper">
-    <!-- <button v-on:click="sortByStartTime">Sort by start time</button> -->
-    <!-- <button v-on:click="sortByFlow">Sort by flow</button> -->
     <section class="layout-side-panel">
 
       <h3>Recipe timeline</h3>
