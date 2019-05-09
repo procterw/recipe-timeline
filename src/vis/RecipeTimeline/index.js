@@ -29,7 +29,8 @@ export class RecipeTimeline {
       .range(['passive', 'semi-active', 'active']);
 
     this.renderLegend();
-
+    this.selections.timeAxis = this.selection.append('ul')
+      .attr('class', 'time-axis');
     this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
   }
@@ -148,6 +149,40 @@ export class RecipeTimeline {
     }); 
   }
 
+  // Renders an axis with 5 minute intervals
+  // TODO make more flexible, or use D3 axes
+  renderTimeAxis() {
+    // this.selections.timeAxis
+    const endTime = this.timeScale.domain()[1];
+    const nBlocks = Math.floor(endTime / 5);
+    const timeBlocks = [...Array(nBlocks)].map(() => 5);
+    const remainder = endTime % 5;
+    if (remainder > 0) timeBlocks.push(remainder);
+
+    const getCumuTime = (d, i) => {
+      let time = 0;
+      for (let j = 0; j < i; j++) {
+        time += timeBlocks[j];
+      }
+
+      // TODO less hacky, move somewhere else
+      if (time < 10) return `00:0${time}`;
+      return `00:${time}`;
+    };
+
+    this.selections.timeAxis
+      .selectAll('li')
+      .data(timeBlocks)
+      .join('li')
+      .attr('class', 'time-block')
+      .style('width', d => {
+        const percentage = `${100 * d / endTime}%`;
+        // leave space for margins between blocks
+        return `calc(${percentage} - 4px)`;
+      })
+      .text(getCumuTime);
+  }
+
   renderLegend() {
     const labels = {
       '0': 'Passive',
@@ -174,6 +209,7 @@ export class RecipeTimeline {
   setSteps(data) {
     this.data = data;
     this.setTimeScale();
+    this.renderTimeAxis();
     this.setStepScale();
     this.renderSteps();
   }

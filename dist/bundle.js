@@ -116,7 +116,7 @@ if(false) {}
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-size: 14px;\n}\n\nnav {\n  text-align: center;\n  margin: 30px 0 50px;\n}\n\nnav a {\n  padding: 6px;\n  text-decoration: none;\n  color: black;\n}\n\nnav a.router-link-exact-active {\n  border-bottom: 7px solid #82ccdd;\n}\n\n.layout {\n\n}\n\n.layout-wrapper {\n  display: flex;\n  max-width: 1100px;\n  margin: 20px auto;\n  padding: 0 50px;\n}\n\n.layout-side-panel {\n  width: 300px;\n}\n\n.layout-content-with-side-panel {\n  flex-grow: 1;\n  padding: 0 40px;\n}\n\n.layout-content-full-width {\n  width: 100%;\n}\n\nh1 {\n  font-weight: 100;\n  font-size: 24px;\n  margin-top: 0;\n  margin-bottom: 15px;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #ddd;\n}\n\nh3 {\n  font-weight: 100;\n  font-size: 19px;\n  margin: 0 0 10px;\n  padding: 0 0 10px;\n  border-bottom: 1px solid #DDD;\n}\n\n/* For mobile phones: */\n@media only screen and (max-width: 768px) {\n  .layout-side-panel {\n    width: 100%;\n  }\n\n  .layout-wrapper {\n    display: block;\n  }\n  \n  .layout-content-with-side-panel {\n    width: 100%;\n    padding: 0;\n  }\n}\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  font-family: Helvetica, sans-serif;\n  font-size: 14px;\n}\n\nnav {\n  text-align: center;\n  margin: 30px 0 50px;\n}\n\nnav a {\n  padding: 6px;\n  text-decoration: none;\n  color: black;\n}\n\nnav a.router-link-exact-active {\n  border-bottom: 7px solid #82ccdd;\n}\n\n.layout {\n\n}\n\n.layout-wrapper {\n  display: flex;\n  max-width: 1100px;\n  margin: 20px auto;\n  padding: 0 50px;\n}\n\n.layout-side-panel {\n  width: 300px;\n}\n\n.layout-content-with-side-panel {\n  flex-grow: 1;\n  padding: 0 40px;\n}\n\n.layout-content-full-width {\n  width: 100%;\n}\n\nh1 {\n  font-weight: 100;\n  font-size: 24px;\n  margin-top: 0;\n  margin-bottom: 15px;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #ddd;\n}\n\nh3 {\n  font-weight: 100;\n  font-size: 19px;\n  margin: 0 0 10px;\n  padding: 0 0 10px;\n  border-bottom: 1px solid #DDD;\n}\n\n/* For mobile phones: */\n@media only screen and (max-width: 768px) {\n  .layout-wrapper {\n    display: block;\n    padding: 0 20px;\n  }\n  \n  .layout-content-with-side-panel {\n    width: 100%;\n    padding: 0;\n  }\n\n  .layout-side-panel {\n    width: 100%;\n  }\n}\n", ""]);
 
 
 
@@ -176,7 +176,7 @@ exports.push([module.i, "\n.full-step-view {\n  font-family: 'Libre Baskerville'
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step:hover .step-bar.passive {\n  background: wheat;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step:hover .step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    wheat,\n    wheat 3px,\n    black 3px,\n    black 4px\n  )\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n.step:hover .step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    wheat 3px,\n    wheat 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n  top: -1px;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\nul.timeline-legend {\n  list-style: none;\n  margin: 0 0 15px;\n  padding: 0 0 5px;\n  border-bottom: 1px solid #ddd;\n}\n\nul.timeline-legend li {\n  display: inline-block;\n  margin-right: 8px;\n}\n\nul.timeline-legend .step-bar {\n  vertical-align: middle;\n  display: inline-block;\n}\n\nul.timeline-legend .label {\n  vertical-align: middle;\n  font-family: 'Libre Baskerville', serif;\n  font-style: italic;\n  margin-left: 5px;\n}\n", ""]);
+exports.push([module.i, ".step-group text {\n  font-family: 'Libre Baskerville', serif;\n  font-size: 13px;\n}\n\n.step-list {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: relative;\n}\n\n/* ------------ */\n/* ------------ */\n/* step */\n\n.step {\n  display: block;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  box-sizing: border-box;\n}\n\n/* ------------ */\n/* ------------ */\n/* step bar, a shaded rectangle visualizing the length */\n\n.step-bar {\n  border: 2px solid black;\n  border-radius: 2px;\n  box-sizing: border-box;\n  position: relative;\n  cursor: pointer;\n  transition: margin-left 0.3s ease-out, width 0.3s ease-out;\n}\n\n.step-bar.passive {\n  background: white;\n}\n\n.step:hover .step-bar.passive {\n  background: wheat;\n}\n\n/* light shading */\n.step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    white,\n    white 3px,\n    black 3px,\n    black 4px\n  );\n}\n\n.step:hover .step-bar.semi-active {\n  background: repeating-linear-gradient(\n    -45deg,\n    wheat,\n    wheat 3px,\n    black 3px,\n    black 4px\n  )\n}\n\n/* dark shading */\n.step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    white 3px,\n    white 4px\n  );\n}\n\n.step:hover .step-bar.active {\n  background: repeating-linear-gradient(\n    -45deg,\n    black,\n    black 3px,\n    wheat 3px,\n    wheat 4px\n  );\n}\n\n/* ------------ */\n/* ------------ */\n/* full step content, the ingredients and direction */\n\n.step .full-step-view {\n  visibility: hidden;\n  pointer-events: none;\n  opacity: 0;\n  transition: opacity 0.3s ease-in;\n}\n\n.step.open .full-step-view {\n  opacity: 1;\n  visibility: visible;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\n.step-header {\n  position: absolute;\n  white-space: nowrap;\n  font-family: 'Libre Baskerville', serif;\n  line-height: 15px;\n  border-bottom: 1px solid #BBB;\n  top: -1px;\n}\n\n.step-title {\n  font-size: 13px;\n  display: block;\n}\n\n.step-duration {\n  font-size: 11px;\n  font-style: italic;\n  color: #888;\n}\n\n/* ------------ */\n/* ------------ */\n/* step header, labeling the title and duration */\n\nul.timeline-legend {\n  list-style: none;\n  margin: 0 0 15px;\n  padding: 0 0 5px;\n  border-bottom: 1px solid #ddd;\n}\n\nul.timeline-legend li {\n  display: inline-block;\n  margin-right: 8px;\n}\n\nul.timeline-legend .step-bar {\n  vertical-align: middle;\n  display: inline-block;\n}\n\nul.timeline-legend .label {\n  vertical-align: middle;\n  font-family: 'Libre Baskerville', serif;\n  font-style: italic;\n  margin-left: 5px;\n}\n\n/* ------------ */\n/* ------------ */\n/* time axis, 5 minute interval blocks */\n\n.time-axis {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n.time-block {\n  display: inline-block;\n  box-sizing: border-box;\n  border-bottom: 2px solid black;\n  background: rgb(248, 248, 248);\n  margin-bottom: 15px;\n  margin-right: 4px;\n  padding: 2px 5px;\n  font-style: italic;\n  font-size: 13px;\n  color: #666;\n}\n", ""]);
 
 
 
@@ -732,7 +732,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v(
-        "\n      The recipe timeline combines the step from multiple recipes and lays them out as \n      a timeline. Each step is labeled as "
+        "\n      The recipe timeline combines the steps from multiple recipes and lays them out as \n      a timeline. Each step is labeled as "
       ),
       _c("em", [_vm._v("passive")]),
       _vm._v(" (baking, simmering), "),
@@ -2483,7 +2483,8 @@ class RecipeTimeline {
       .range(['passive', 'semi-active', 'active']);
 
     this.renderLegend();
-
+    this.selections.timeAxis = this.selection.append('ul')
+      .attr('class', 'time-axis');
     this.selections.stepList = this.selection.append('ul')
       .attr('class', 'step-list');
   }
@@ -2602,6 +2603,40 @@ class RecipeTimeline {
     }); 
   }
 
+  // Renders an axis with 5 minute intervals
+  // TODO make more flexible, or use D3 axes
+  renderTimeAxis() {
+    // this.selections.timeAxis
+    const endTime = this.timeScale.domain()[1];
+    const nBlocks = Math.floor(endTime / 5);
+    const timeBlocks = [...Array(nBlocks)].map(() => 5);
+    const remainder = endTime % 5;
+    if (remainder > 0) timeBlocks.push(remainder);
+
+    const getCumuTime = (d, i) => {
+      let time = 0;
+      for (let j = 0; j < i; j++) {
+        time += timeBlocks[j];
+      }
+
+      // TODO less hacky, move somewhere else
+      if (time < 10) return `00:0${time}`;
+      return `00:${time}`;
+    };
+
+    this.selections.timeAxis
+      .selectAll('li')
+      .data(timeBlocks)
+      .join('li')
+      .attr('class', 'time-block')
+      .style('width', d => {
+        const percentage = `${100 * d / endTime}%`;
+        // leave space for margins between blocks
+        return `calc(${percentage} - 4px)`;
+      })
+      .text(getCumuTime);
+  }
+
   renderLegend() {
     const labels = {
       '0': 'Passive',
@@ -2628,6 +2663,7 @@ class RecipeTimeline {
   setSteps(data) {
     this.data = data;
     this.setTimeScale();
+    this.renderTimeAxis();
     this.setStepScale();
     this.renderSteps();
   }
